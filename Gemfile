@@ -8,6 +8,8 @@ gem 'rails', '4.2.7'
 gem 'mysql2'
 
 gem 'devise'
+gem 'cancancan'
+gem 'rolify'
 
 # Use SCSS for stylesheets
 gem 'activeadmin', github: 'activeadmin'
