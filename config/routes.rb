@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 
   devise_for :users, path_names:  { sign_in: "login", sign_out: "logout" }
 
+  resources :users do
+    resources :gyms, only: [:index, :new, :create, :edit, :update]
+  end
+
+  resources :gyms, only: [:index]
   # devise_scope :user do
   #   get "login", to: "devise/sessions#new"
   #   authenticated :user do
