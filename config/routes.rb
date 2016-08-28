@@ -3,13 +3,16 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#index'
 
-  devise_for :users, path_names:  { sign_in: "login", sign_out: "logout" }
+  devise_for :users, path_names:  { sign_in: "login", sign_out: "logout" },
+                     controllers: {
+                                    registrations: "users/registrations"
+                                  }
 
   resources :users do
-    resources :gyms, only: [:index, :new, :create, :edit, :update]
+    resources :gyms
   end
 
-  resources :gyms, only: [:index]
+  resources :gyms, only: [:index, :show]
   # devise_scope :user do
   #   get "login", to: "devise/sessions#new"
   #   authenticated :user do
