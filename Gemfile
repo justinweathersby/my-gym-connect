@@ -3,13 +3,16 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.7'
-# Use sqlite3 as the database for Active Record
-# gem 'sqlite3'
 gem 'mysql2'
 
+# Authorization and Authentication
 gem 'devise'
 gem 'cancancan'
 gem 'rolify'
+
+# Handling image uploads to s3 and storage
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
 
 # Use SCSS for stylesheets
 gem 'activeadmin', github: 'activeadmin'

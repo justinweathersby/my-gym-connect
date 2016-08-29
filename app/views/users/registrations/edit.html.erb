@@ -12,6 +12,24 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image, id: "user_image" %>
+    <% if f.object.image_file_name != nil %>
+      <br />
+      <div style="border:1px solid black; border-radius: 5px; padding:10px;">
+        <div id="user_image_preview"></div>
+        <div id="user_image_current">
+          <%=f.check_box(:remove_image) %>
+          <%= label :remove_image, "Remove Image" %>
+          <br />
+          <%= image_tag current_user.image.url(:medium)%>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
   <!-- <div class="field" style="padding-top:10px">
     <h3>Select workout blocks</h3>
     <table>
@@ -30,7 +48,7 @@
         <td>
 
           <%= select_hour(@monday_opening_hour, prompt: 'Choose hour block') %>
-        
+
         </td>
       <% end %>
         </tr>
@@ -67,3 +85,27 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
+
+<script>
+$(function() {
+  $('#user_image').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      console.log(file);
+      img.src = file.target.result;
+      img.width = 400;
+      $('#user_image_preview').html(img)
+      $('div.user_image_preview > img').attr('width', '440');
+
+      $('#user_image_current').hide();
+    }
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});
+
+
+</script>
