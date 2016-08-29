@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :users, only:[:show]
 
-  resources :gyms, only: [:index, :show]
+  resources :gyms, only: [:show]
   # devise_scope :user do
   #   get "login", to: "devise/sessions#new"
   #   authenticated :user do
