@@ -16,5 +16,8 @@
 !/log/.keep
 /tmp
 
+# Local dev variables
+/config/local_env.yml
+
 /.ruby-gemset
 /.ruby-version
