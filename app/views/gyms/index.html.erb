@@ -13,6 +13,7 @@
       <tr>
         <td><%= gym.name %></td>
         <td><%= link_to 'Show', gym %></td>
+        <td><%= link_to 'Edit', edit_user_gym_path(current_user, gym)%></td>
       </tr>
     <% end %>
   </tbody>

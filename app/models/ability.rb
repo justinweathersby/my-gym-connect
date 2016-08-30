@@ -10,7 +10,9 @@ class Ability
         can :manage, Gym, user_id: user.id # can manage thier own gym
         can :read, Gym
       else
-        can :read, :all
+        can :manage, User, user_id: user.id
+        can [:show], [User, Gym] # Can view show page of other users and Gyms
+
       end
     #
     # The first argument to `can` is the action you are giving the user

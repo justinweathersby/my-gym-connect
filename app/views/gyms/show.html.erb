@@ -5,15 +5,15 @@
 <p>
   <%= @gym.created_at.strftime("Member Since: %m/%d/%Y") %>
 </p>
-  <% if @gym.image?%>
-    <br />
-    <%= image_tag @gym.image.url(:thumb) %>
-    <br />
-  <% else %>
-    <p>
-      <strong>NO LOGO UPLOADED</strong>
-    </p>
-  <% end %>
+<% if @gym.image?%>
+  <br />
+  <%= image_tag @gym.image.url(:thumb) %>
+  <br />
+<% else %>
+  <p>
+    <strong>NO LOGO UPLOADED</strong>
+  </p>
+<% end %>
 <p>
   <strong>Contact Email:</strong>
   <%= @gym.contact_email %>

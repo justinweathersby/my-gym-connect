@@ -1,13 +1,39 @@
-<%= @user.email %>
-<br />
-<%= image_tag @user.image.url(:thumb) %>
-<br />
-Hours in Gym Array:
-<br />
-<%= @user.hours_in_gym.each do |h| %>
-  :<%= h %>
+<p>
+  <strong>User Email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <%= @user.created_at.strftime("Member Since: %m/%d/%Y") %>
+</p>
+<p>
+  <strong>Gym Assosiated To:</strong>
+  <%= @user.gym.name if @user.gym_id.present? %>
+</p>
+<% if @user.image?%>
   <br />
-<% end%>
-<br />
-Workout Level:
-<%= @user.workout_level%>
+  <%= image_tag @user.image.url(:thumb) %>
+  <br />
+<% else %>
+  <p>
+    <strong>NO PHOTO UPLOADED</strong>
+  </p>
+<% end %>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+<p>
+  <strong>Hours in Gym Array:</strong>
+  <%= @user.hours_in_gym.each do |h| %>
+    :<%= h %>
+    <br />
+  <% end%>
+</p>
+<p>
+  <strong>Workout Level:</strong>
+  <%= @user.workout_level%>
+</p>
+
+<% if signed_in? and current_user == @user%>
+  <%= link_to "Edit Profile", edit_user_registration_path %>
+<% end %>
