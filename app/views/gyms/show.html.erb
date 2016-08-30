@@ -1,4 +1,32 @@
 <p>
-  <strong>Name:</strong>
+  <strong>Name of Gym:</strong>
   <%= @gym.name %>
+</p>
+<p>
+  <%= @gym.created_at.strftime("Member Since: %m/%d/%Y") %>
+</p>
+  <% if @gym.image?%>
+    <br />
+    <%= image_tag @gym.image.url(:thumb) %>
+    <br />
+  <% else %>
+    <p>
+      <strong>NO LOGO UPLOADED</strong>
+    </p>
+  <% end %>
+<p>
+  <strong>Contact Email:</strong>
+  <%= @gym.contact_email %>
+</p>
+<p>
+  <strong>Phone:</strong>
+  <%= @gym.phone %>
+</p>
+<p>
+  <strong>Location:</strong>
+  <%= @gym.location %>
+</p>
+<p>
+  <strong>Hours of Operation:</strong>
+  <%= @gym.hours_of_operation %>
 </p>
