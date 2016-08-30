@@ -17,9 +17,55 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
+  <div class="field">
+    <%= f.label :contact_email %><br />
+    <%= f.text_field :contact_email, :value => current_user.email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.phone_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image, id: "gym_image" %>
+    <div style="border:1px solid black; border-radius: 5px; padding:10px;">
+      <div id="gym_image_preview"></div>
+    </div>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
 
 <%= link_to 'Back', user_gyms_path(current_user) %>
+
+<script>
+$(function() {
+  $('#gym_image').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      console.log(file);
+      img.src = file.target.result;
+      img.width = 400;
+      $('#gym_image_preview').html(img)
+      $('div.gym_image_preview > img').attr('width', '440');
+    }
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});
+
+
+</script>

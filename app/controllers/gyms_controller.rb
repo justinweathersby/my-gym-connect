@@ -29,12 +29,12 @@ class GymsController < InheritedResources::Base
 
   # def edit
   # end
-  #
+
 
   private
 
     def gym_params
-      params.require(:gym).permit(:name)
+      params.require(:gym).permit(:name, :image, :remove_image, :contact_email, :location, :phone)
     end
 
     def find_user
