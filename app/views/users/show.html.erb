@@ -1,2 +1,13 @@
 <%= @user.email %>
-<%= image_tag @user.img.url(:thumb) %>
+<br />
+<%= image_tag @user.image.url(:thumb) %>
+<br />
+Hours in Gym Array:
+<br />
+<%= @user.hours_in_gym.each do |h| %>
+  :<%= h %>
+  <br />
+<% end%>
+<br />
+Workout Level:
+<%= @user.workout_level%>

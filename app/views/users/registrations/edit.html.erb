@@ -5,12 +5,22 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email, readonly: true %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :workout_level %> <br />
+    <%= f.select :workout_level, User::WORKOUTLEVELS %>
+  </div>
 
   <div class="field">
     <%= f.label :image %>
@@ -27,6 +37,20 @@
         </div>
       </div>
     <% end %>
+  </div>
+
+  <div class="field">
+    <!-- <%= f.label :hours_in_gym %>
+    <%= f.text_field :hours_in_gym, multiple: true %> -->
+
+    <div style="max-height:150px; width:50%; overflow:auto; border: 1px solid black; border-radius: 5px;">
+      <%= f.label :hours_in_gym %>
+      <ul class="channels-list">
+        <% (0..167).each do |block| %>
+          <li><%= check_box_tag "user[hours_in_gym][]", block, f.object.hours_in_gym.include?(block), id: "user_hours_in_gym_#{block}" %> <%= block%></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 
 
@@ -76,15 +100,17 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", class: "btn btn-success" %>
+    <%= button_to "Go Back", :back, class: "btn btn-warning", data: { confirm: "Your changes will not be saved. Are you sure?" }, method: :get %></p>
   </div>
 <% end %>
 
+<hr />
 <h3>Cancel my account</h3>
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "This will delete you from our system FOREVER...Are you sure?" }, method: :delete %></p>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
+<!-- <%= link_to "Back", :back %> -->
 
 <script>
 $(function() {
