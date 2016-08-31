@@ -21,3 +21,7 @@
 
 /.ruby-gemset
 /.ruby-version
+
+/db/cleardb-keys/
+
+/vendor/tmp/
