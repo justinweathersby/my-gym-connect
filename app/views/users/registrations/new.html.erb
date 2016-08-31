@@ -19,6 +19,7 @@
   </div>
 
   <div class="field">
+      <%= f.label :gym_id %> <br />
       <%= f.select :gym_id, Gym.all.map { |gym| [gym.name, gym.id] } %>
   </div>
 
