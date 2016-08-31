@@ -12,9 +12,10 @@ Rails.application.routes.draw do
     resources :gyms
   end
 
-  resources :users, only:[:show]
-
+  resources :users, only:[:show] #User profile
   resources :gyms, only: [:show]
+
+  get 'matches' => "matches#show"
   # devise_scope :user do
   #   get "login", to: "devise/sessions#new"
   #   authenticated :user do

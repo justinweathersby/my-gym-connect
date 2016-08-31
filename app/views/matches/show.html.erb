@@ -1,0 +1,19 @@
+<div class="center jumbotron" style="margin-top:50px;">
+  <h2>Your Matches:</h2>
+  <ol>
+    <% if @matches.present? %>
+      <% @matches.each do |m| %>
+        <li>
+          <%= link_to m.email, user_path(m), :style => "color: blue" %>
+          <!-- <%= m.gym_id %> -->
+        </li>
+      <% end %>
+    <% else %>
+      <li>
+        Sorry you have no matches..
+      </li>
+    <% end %>
+  </ol>
+
+
+</div>

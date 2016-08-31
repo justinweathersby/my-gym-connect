@@ -1,0 +1,15 @@
+
+//** Background color for `<body>`.
+// $body-bg: #5ed5e5 !default;
+//
+//
+a {
+   &:visited {
+     color: #fff;
+     text-decoration: none;
+   }
+ }
+
+
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
