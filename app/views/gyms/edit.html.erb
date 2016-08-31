@@ -18,6 +18,43 @@
     <%= f.text_field :name %>
   </div>
 
+  <div class="field">
+    <%= f.label :contact_email %><br />
+    <%= f.text_field :contact_email, :value => current_user.email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.phone_field :phone %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= f.label :hours_of_operation %><br />
+    <%= f.text_field :hours_of_operation %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image, "Logo" %>
+    <%= f.file_field :image, id: "gym_image" %>
+    <div style="border:1px solid black; border-radius: 5px; padding:10px;">
+      <div id="gym_image_preview"></div>
+      <% if f.object.image_file_name != nil %>
+        <br />
+          <div id="gym_image_current">
+            <%=f.check_box(:remove_image) %>
+            <%= label :remove_image, "Remove Image" %>
+            <br />
+            <%= image_tag f.object.image.url(:medium)%>
+          </div>
+      <% end %>
+    </div>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -26,3 +63,25 @@
 
 <%= link_to 'Show', gym_path(@gym) %> |
 <%= link_to 'Back', user_gyms_path %>
+
+<script>
+$(function() {
+  $('#gym_image').on('change', function(event) {
+    var files = event.target.files;
+    var image = files[0]
+    var reader = new FileReader();
+    reader.onload = function(file) {
+      var img = new Image();
+      console.log(file);
+      img.src = file.target.result;
+      img.width = 400;
+      $('#gym_image_preview').html(img)
+      $('div.gym_image_preview > img').attr('width', '440');
+
+      $('#gym_image_current').hide();
+    }
+    reader.readAsDataURL(image);
+    console.log(files);
+  });
+});
+</script>

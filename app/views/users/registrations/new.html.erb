@@ -9,6 +9,51 @@
   </div>
 
   <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+      <%= f.select :gym_id, Gym.all.map { |gym| [gym.name, gym.id] } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :workout_level %> <br />
+    <%= f.select :workout_level, User::WORKOUTLEVELS %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image, id: "user_image" %>
+    <% if f.object.image_file_name != nil %>
+      <br />
+      <div style="border:1px solid black; border-radius: 5px; padding:10px;">
+        <div id="user_image_preview"></div>
+        <div id="user_image_current">
+          <%=f.check_box(:remove_image) %>
+          <%= label :remove_image, "Remove Image" %>
+          <br />
+          <%= image_tag current_user.image.url(:medium)%>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <!-- <%= f.label :hours_in_gym %>
+    <%= f.text_field :hours_in_gym, multiple: true %> -->
+
+    <div style="max-height:150px; width:50%; overflow:auto; border: 1px solid black; border-radius: 5px;">
+      <%= f.label :hours_in_gym %>
+      <ul class="channels-list">
+        <% (0..167).each do |block| %>
+          <li><%= check_box_tag "user[hours_in_gym][]", block, f.object.hours_in_gym.include?(block), id: "user_hours_in_gym_#{block}" %> <%= block%></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -20,7 +65,7 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
-  
+
   <%= f.hidden_field :role, value: params[:user_type] %>
 
   <div class="actions">

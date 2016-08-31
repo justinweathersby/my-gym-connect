@@ -34,7 +34,7 @@ class GymsController < InheritedResources::Base
   private
 
     def gym_params
-      params.require(:gym).permit(:name, :image, :remove_image, :contact_email, :location, :phone)
+      params.require(:gym).permit(:name, :image, :remove_image, :contact_email, :location, :phone, :hours_of_operation)
     end
 
     def find_user
