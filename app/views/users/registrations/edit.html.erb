@@ -18,6 +18,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :gender %> <br />
+    <%= f.select :gender, User::GENDERS %>
+  </div>
+
+  <div class="field">
     <%= f.label :workout_level %> <br />
     <%= f.select :workout_level, User::WORKOUTLEVELS %>
   </div>

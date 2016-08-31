@@ -14,6 +14,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :gender %> <br />
+    <%= f.select :gender, User::GENDERS %>
+  </div>
+
+  <div class="field">
       <%= f.select :gym_id, Gym.all.map { |gym| [gym.name, gym.id] } %>
   </div>
 

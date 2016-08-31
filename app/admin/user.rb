@@ -10,7 +10,7 @@ ActiveAdmin.register User do
 # end
 
 permit_params :email, :name, :password, :password_confirmation,
-              :role,
+              :role, :gender,
               :image, :remove_image,
               :workout_level, :gym_id, :hours_in_gym => []
 
@@ -30,6 +30,7 @@ permit_params :email, :name, :password, :password_confirmation,
       row :last_sign_in_at
       row :name
       row :role
+      row :gender
       row "Image" do |image|
         "<img src='#{image.image.url(:thumb)}', alt='NA'".html_safe
       end
@@ -54,6 +55,9 @@ permit_params :email, :name, :password, :password_confirmation,
           f.input :role,
                   :as => :select,
                   :collection => {None: "", GymManager: "gymManager", Administrator: "admin"}
+          f.input :gender,
+                  :as => :select,
+                  :collection => USER::GENDERS
           f.input :workout_level,
              :label      => 'Workout Level',
              :as         => :select,
