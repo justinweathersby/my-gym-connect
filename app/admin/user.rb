@@ -57,7 +57,7 @@ permit_params :email, :name, :password, :password_confirmation,
                   :collection => {None: "", GymManager: "gymManager", Administrator: "admin"}
           f.input :gender,
                   :as => :select,
-                  :collection => USER::GENDERS
+                  :collection => User::GENDERS
           f.input :workout_level,
              :label      => 'Workout Level',
              :as         => :select,
