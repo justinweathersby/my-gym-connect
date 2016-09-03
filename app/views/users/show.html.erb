@@ -27,9 +27,9 @@
   <%= @user.gender %>
 </p>
 <p>
-  <strong>Hours in Gym Array:</strong>
-  <%= @user.hours_in_gym.each do |h| %>
-    :<%= h %>
+  <strong>Hours in Gym Array:</strong><br />
+  <% @user.hours_in_gym.each do |h| %>
+    <%= calc_datetime_from_hours(h.to_f) %>
     <br />
   <% end%>
 </p>

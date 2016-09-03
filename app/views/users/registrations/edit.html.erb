@@ -52,7 +52,7 @@
       <%= f.label :hours_in_gym %>
       <ul class="channels-list">
         <% (0..167).each do |block| %>
-          <li><%= check_box_tag "user[hours_in_gym][]", block, f.object.hours_in_gym.include?(block), id: "user_hours_in_gym_#{block}" %> <%= block%></li>
+          <li><%= check_box_tag "user[hours_in_gym][]", block, f.object.hours_in_gym.include?(block), id: "user_hours_in_gym_#{block}" %> <%= calc_datetime_from_hours(block) %></li>
         <% end %>
       </ul>
     </div>

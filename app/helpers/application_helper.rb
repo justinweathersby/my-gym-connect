@@ -11,5 +11,11 @@ module ApplicationHelper
             end)
     end
     nil
-end
+  end
+
+  def calc_datetime_from_hours(n)
+    sunday = DateTime.new(2016, 9, 4, 0, 0, 0)
+    datetime_string = (sunday + n.hours).to_datetime
+    return datetime_string.strftime("%A at %I:%M%p")
+  end
 end
