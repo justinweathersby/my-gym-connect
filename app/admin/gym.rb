@@ -22,6 +22,7 @@ permit_params :name, :contact_email, :location, :phone, :hours_of_operation, :us
   show do
     attributes_table do
       row :name
+      row :access_code
       row :contact_email
       row :location
       row :phone
