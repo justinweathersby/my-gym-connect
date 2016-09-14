@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   serialize :hours_in_gym, Array
 
+  after_create :generate_auth_token
+
   ROLES = %i[admin gymManager banned]
   WORKOUTLEVELS = %i[beginner intermediate expert]
   GENDERS = %i[male female]
@@ -25,5 +27,12 @@ class User < ActiveRecord::Base
 
   def role?(r)
      role.include? r.to_s
+  end
+
+  def generate_auth_token
+    loop do
+      self.auth_token = Devise.friendly_token
+      break self.auth_token unless User.where(auth_token: self.auth_token).first
+    end
   end
 end
