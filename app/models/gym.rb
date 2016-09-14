@@ -6,6 +6,8 @@ class Gym < ActiveRecord::Base
 
   validates :user_id, presence: true
 
+  after_create :generate_access_code
+
   has_attached_file :image, styles: { medium: "500x500>", thumb: "100x100>" }
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   attr_writer :remove_image
@@ -13,5 +15,12 @@ class Gym < ActiveRecord::Base
 
   def remove_image
     @remove_image || false
+  end
+
+  def generate_access_code
+    loop do
+      self.access_code = Devise.friendly_token(length = 10);
+      break self.access_code unless Gym.where(access_code: self.access_code).first
+    end
   end
 end

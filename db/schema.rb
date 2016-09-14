@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912194312) do
+ActiveRecord::Schema.define(version: 20160914003918) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(version: 20160912194312) do
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
     t.text     "hours_of_operation", limit: 65535
+    t.string   "access_code",        limit: 255
   end
 
+  add_index "gyms", ["access_code"], name: "index_gyms_on_access_code", using: :btree
   add_index "gyms", ["user_id"], name: "index_gyms_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
