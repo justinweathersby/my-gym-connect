@@ -4,12 +4,19 @@ class Api::V1::UsersController < Api::ApiController
 
   def create
     @user = User.new(sign_up_params)
-    if @user.valid?
-      @user.generate_auth_token
-      @user.save
-      render json: {user: @user}, status: 200
+    gym_access_code = params[:gym_code]
+    gym = Gym.find_by_access_code(gym_access_code)
+    if gym.present?
+      if @user.valid?
+        # @user.generate_auth_token
+        @user.gym_id = gym.id
+        @user.save
+        render json: {user: @user}, status: 200
+      else
+        render json: { errors: "Email Already Taken"}, status: :bad_request
+      end
     else
-      render json: @user.errors, status: :bad_request
+      render json: {errors: "Gym Not Found"}, status: 422
     end
   end
 
