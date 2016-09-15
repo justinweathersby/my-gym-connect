@@ -27,7 +27,7 @@ permit_params :name, :contact_email, :location, :phone, :hours_of_operation, :us
       row :location
       row :phone
       row :hours_of_operation
-      row "Ownership Id: ", :user_id
+      row :user_id
       row "Image" do |image|
         "<img src='#{image.image.url(:thumb)}', alt='NA'".html_safe
       end
