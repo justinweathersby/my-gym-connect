@@ -26,7 +26,7 @@ class Api::V1::UsersController < Api::ApiController
 
   def update
   	@user = current_user
-  	if @user.update_attributes(sign_up_params)
+  	if @user.update_attributes(update_params)
   		render :update, status: :ok, formats: [:json]
   	else
   		render json: {errors: @user.errors}, status: 422
@@ -48,5 +48,9 @@ class Api::V1::UsersController < Api::ApiController
   def sign_up_params
     params[:user].permit(:name, :email, :password, :gym_code)
     # params.permit(:first_name,:last_name,:company_name,:organization_name ,:officer_name,:email, :password, :password_confirmation)
+  end
+
+  def update_params
+    params.permit(:id, :name, :password, :workout_level,  :image, :gender, hours_in_gym: [])
   end
 end

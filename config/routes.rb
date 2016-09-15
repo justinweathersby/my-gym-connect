@@ -16,8 +16,11 @@ Rails.application.routes.draw do
        scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
 
          resources :sessions, :only      => [:create, :destroy]
-         match '/login'                     => 'sessions#create', :via => [:options, :post]
-         post '/logout/:user_id'           => 'sessions#destroy'
+         match '/login'                  => 'sessions#create', :via => [:options, :post]
+         post '/logout/:user_id'         => 'sessions#destroy'
+
+         match '/users/:id'              => 'users#update', :via => [:options, :put, :post]
+         get '/matches'                  => 'matches#show'
         #  match '/s3_access_signature'       => 's3_signature#s3_access_token'
 
          resources :users, :only         => [:show, :create, :update]

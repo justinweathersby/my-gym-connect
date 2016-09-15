@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   WORKOUTLEVELS = %i[beginner intermediate expert]
   GENDERS = %i[male female]
 
-  has_attached_file :image, styles: { medium: "500x500>", thumb: "100x100>" }
+  has_attached_file :image, styles: { medium: "500x500>", thumb: "100x100>" }, s3_protocol: :https
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   attr_writer :remove_image
   before_validation { self.image.clear if self.remove_image == '1' }
