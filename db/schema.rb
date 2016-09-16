@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914003918) do
+ActiveRecord::Schema.define(version: 20160915143508) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20160914003918) do
 
   add_index "gyms", ["access_code"], name: "index_gyms_on_access_code", using: :btree
   add_index "gyms", ["user_id"], name: "index_gyms_on_user_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "sender_id",  limit: 4
+    t.text     "body",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",          limit: 255

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
          match '/users/:id'              => 'users#update', :via => [:options, :put, :post]
          get '/matches'                  => 'matches#show'
+         resources :messages, :only      => [:create, :index, :destroy]
         #  match '/s3_access_signature'       => 's3_signature#s3_access_token'
 
          resources :users, :only         => [:show, :create, :update]
@@ -34,6 +35,9 @@ Rails.application.routes.draw do
 
   resources :users, only:[:show] #User profile
   resources :gyms, only: [:show]
+
+  # TODO: Look into abilities for messages
+  resources :messages
 
   get 'matches' => "matches#show"
 end
