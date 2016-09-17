@@ -4,19 +4,19 @@ class Api::V1::UsersController < Api::ApiController
 
   def create
     @user = User.new(sign_up_params)
-    gym_access_code = params[:gym_code]
-    gym = Gym.find_by_access_code(gym_access_code)
-    if gym.present?
-      if @user.valid?
-        # @user.generate_auth_token
+    if @user.valid?
+      gym_access_code = params[:gym_code]
+      gym = Gym.find_by_access_code(gym_access_code)
+      if gym.present?
+        puts "Inside gym present true...user:", @user.inspect
         @user.gym_id = gym.id
         @user.save
         render json: {user: @user}, status: 200
       else
-        render json: { errors: "Email Already Taken"}, status: :bad_request
+        render json: {errors: "Gym Not Found"}, status: 422
       end
     else
-      render json: {errors: "Gym Not Found"}, status: 422
+      render json: { errors: @user.errors}, status: :bad_request
     end
   end
 
@@ -46,7 +46,7 @@ class Api::V1::UsersController < Api::ApiController
   private
 
   def sign_up_params
-    params[:user].permit(:name, :email, :password, :gym_code)
+    params[:user].permit(:name, :email, :password, :password_confirmation, :gym_code)
     # params.permit(:first_name,:last_name,:company_name,:organization_name ,:officer_name,:email, :password, :password_confirmation)
   end
 
