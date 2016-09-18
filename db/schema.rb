@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915143508) do
+ActiveRecord::Schema.define(version: 20160918043855) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 20160915143508) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "sender_id",    limit: 4
+    t.integer  "recipient_id", limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "gyms", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -48,14 +55,15 @@ ActiveRecord::Schema.define(version: 20160915143508) do
   add_index "gyms", ["user_id"], name: "index_gyms_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "sender_id",  limit: 4
-    t.text     "body",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "body",            limit: 65535
+    t.integer  "conversation_id", limit: 4
+    t.integer  "user_id",         limit: 4
+    t.boolean  "read",                          default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
