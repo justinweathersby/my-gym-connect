@@ -9,7 +9,7 @@ class Api::ApiController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   rescue_from CanCan::AccessDenied do |e|
-    render json: errors_json(e.message), status: :forbidden
+    render json: {errors: e.message}, status: :forbidden
   end
 
 	#--Overwrite devise method

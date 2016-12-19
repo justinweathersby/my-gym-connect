@@ -21,10 +21,14 @@ Rails.application.routes.draw do
 
          match '/users/:id'              => 'users#update', :via => [:options, :put, :post]
          get '/matches'                  => 'matches#show'
-         resources :messages, :only      => [:create, :index, :destroy]
-        #  match '/s3_access_signature'       => 's3_signature#s3_access_token'
 
          resources :users, :only         => [:show, :create, :update]
+
+         resources :messages
+
+         resources :conversations do
+          resources :messages
+         end
      end
    end
    #==========================================

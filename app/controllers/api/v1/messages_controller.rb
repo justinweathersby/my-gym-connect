@@ -1,9 +1,15 @@
 class Api::V1::MessagesController < Api::ApiController
+  load_and_authorize_resource
   before_action :authenticate_with_token!
+  before_action :find_conversation
+
+  def new
+   @message = @conversation.messages.new
+  end
 
   def create
-    @message = Message.new(message_params)
-    @message.sender_id = current_user.id
+    @message = @conversation.messages.new(message_params)
+    @message.user_id = current_user.id
     if  @message.save
       render :new, status: :ok, formats: [:json]
     else
@@ -12,21 +18,7 @@ class Api::V1::MessagesController < Api::ApiController
   end
 
   def index
-    @inbox = Message.where(:user_id => current_user.id).order(created_at: :desc).group_by{|message| message.sender_id}
-    @outbox = Message.where(:sender_id => current_user.id).order(created_at: :desc).group_by{|message| message.user_id}
-    @conversations = @inbox.merge(@outbox){|key, first, second| first.is_a?(Array) && second.is_a?(Array) ? first | second : second }
-
-    # @testCombine.each do |message|
-    #   puts 'Message: ', message.inspect
-    #   puts '\n\n'
-    #   message[1].each do |row|
-    #     puts 'Row: ', row
-    #     puts '\n'
-    #
-    #   end
-      # message.sort! { |a,b| a.created_at <=> b.created_at }
-      # message.sort_by { |hsh| hsh[:created_at] }
-    # end
+    @messages = @conversation.messages.order(created_at: :desc)
 
   end
 
@@ -37,8 +29,18 @@ class Api::V1::MessagesController < Api::ApiController
   end
 
   private
+    def find_conversation
+      if params[:conversation_id]
+        @conversation = Conversation.find(params[:conversation_id])
+      elsif params[:recipient_id]
+        @conversation = Conversation.new(:sender_id => current_user.id, :recipient_id => params[:recipient_id])
+      else
+        render json: {errors: "Must have a conversation_id or a recipient_id."}, status: 422
+      end
+    end
 
     def message_params
-      params.permit(:user_id, :body)
+      # params.permit(:user_id, :body)
+      params.require(:message).permit(:user_id,:body, :conversation_id, :recipient_id)
     end
 end

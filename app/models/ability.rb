@@ -10,6 +10,10 @@ class Ability
         can :manage, Gym, user_id: user.id # can manage thier own gym
         can :read, Gym
       else
+        cannot :index, [Conversation, Message]
+        can :manage, Conversation, sender_id: user.id
+        can :manage, Conversation, recipient_id: user.id
+        can :manage, Message, user_id: user.id
         can :manage, User, user_id: user.id
         can [:show], [User, Gym] # Can view show page of other users and Gyms
 
