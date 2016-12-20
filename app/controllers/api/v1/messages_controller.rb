@@ -8,6 +8,8 @@ class Api::V1::MessagesController < Api::ApiController
   end
 
   def create
+    puts "inside messages create:"
+    puts @conversation.inspect
     @message = @conversation.messages.new(message_params)
     @message.user_id = current_user.id
     if  @message.save
@@ -19,7 +21,6 @@ class Api::V1::MessagesController < Api::ApiController
 
   def index
     @messages = @conversation.messages.order(created_at: :desc)
-
   end
 
   def show
@@ -30,10 +31,17 @@ class Api::V1::MessagesController < Api::ApiController
 
   private
     def find_conversation
+      puts "inside find conversatoin"
       if params[:conversation_id]
         @conversation = Conversation.find(params[:conversation_id])
       elsif params[:recipient_id]
-        @conversation = Conversation.new(:sender_id => current_user.id, :recipient_id => params[:recipient_id])
+        puts "inside elsif recipient_id"
+        @conversation = Conversation.between(current_user.id ,params[:recipient_id]).first
+        @conversation.inspect
+        if @conversation == nil
+          p "conversatoin nil in find"
+          @conversation = Conversation.create!(:sender_id => current_user.id, :recipient_id => params[:recipient_id])
+        end
       else
         render json: {errors: "Must have a conversation_id or a recipient_id."}, status: 422
       end

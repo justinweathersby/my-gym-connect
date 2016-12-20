@@ -7,15 +7,17 @@ def index
 end
 
 def create
+  p "Inside create"
+  if Conversation.between(current_user.id ,params[:recipient_id]).present?
+     @conversation = Conversation.between(current_user.id, params[:recipient_id])
+  else
+     @conversation = Conversation.create!(current_user.id, params[:recipient_id])
+     puts @conversation.inspect
+  end
+
   # ---The between method checks to see if a conversation between these 2 users
   # ---exists…only if one does not already exist is the conversation created.
-  if Conversation.between(current_user.id ,params[:recipient_id])
-    .present?
-    @conversation = Conversation.between(current_user.id,
-     params[:recipient_id]).first
- else
-    @conversation = Conversation.create(conversation_params)
- end
+
 end
 
 private
