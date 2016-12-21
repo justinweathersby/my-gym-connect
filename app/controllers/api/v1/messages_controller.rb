@@ -20,7 +20,7 @@ class Api::V1::MessagesController < Api::ApiController
   end
 
   def index
-    @messages = @conversation.messages.order(created_at: :desc)
+    @messages = @conversation.messages.order(created_at: :asc)
   end
 
   def show
