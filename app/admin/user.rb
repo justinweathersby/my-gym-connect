@@ -10,9 +10,9 @@ ActiveAdmin.register User do
 # end
 
 permit_params :email, :name, :password, :password_confirmation,
-              :role, :gender,
+              :role, :gender, :gender_match,
               :image, :remove_image,
-              :workout_level, :gym_id, :hours_in_gym => []
+              :workout_level, :workout_time, :gym_id
 
   index do
       column :email
@@ -31,20 +31,22 @@ permit_params :email, :name, :password, :password_confirmation,
       row :name
       row :role
       row :gender
+      row :gender_match
       row "Image" do |image|
         "<img src='#{image.image.url(:thumb)}', alt='NA'".html_safe
       end
       row :workout_level
+      row :workout_time
       row :gym_id do |g|
         Gym.find(g.gym_id) if g.gym_id.present?
       end
-      row :hours_in_gym
     end
   end
 
   filter :email
   filter :gym_id
   filter :workout_level
+  filter :workout_time
   filter :role
   filter :created_at
 
@@ -58,15 +60,22 @@ permit_params :email, :name, :password, :password_confirmation,
           f.input :gender,
                   :as => :select,
                   :collection => User::GENDERS
+          f.input :gender_match,
+                  :as => :select,
+                  :collection => User::GENDERMATCH
           f.input :workout_level,
              :label      => 'Workout Level',
              :as         => :select,
              :collection => User::WORKOUTLEVELS
-          f.input :hours_in_gym,
-             :label      => 'Hour Blocks (Hold control or command button and click the blocks)',
+          f.input :workout_time,
+             :label      => 'Workout Time',
              :as         => :select,
-             :multiple   => :true,
-             :collection => (0..167)
+             :collection => User::WORKOUTTIMES
+          # f.input :hours_in_gym,
+          #    :label      => 'Hour Blocks (Hold control or command button and click the blocks)',
+          #    :as         => :select,
+          #    :multiple   => :true,
+          #    :collection => (0..167)
           f.input :gym_id,
              :label       => 'Associated Gym',
              :as          => :select,
