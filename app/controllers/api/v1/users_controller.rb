@@ -51,6 +51,6 @@ class Api::V1::UsersController < Api::ApiController
   end
 
   def update_params
-    params.permit(:id, :name, :password, :workout_level,  :image, :gender, :workout_time, hours_in_gym: [])
+    params.permit(:id, :name, :password, :workout_level,  :image, :gender, :gender_match, :workout_time, hours_in_gym: [])
   end
 end
