@@ -6,5 +6,6 @@ json.array! @matches do |match|
   json.gender match.gender
   json.workout_time match.workout_time
   json.workout_level match.workout_level
+  json.description match.description
   json.image_url match.image.url(:medium)
 end

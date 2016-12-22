@@ -10,7 +10,7 @@ ActiveAdmin.register User do
 # end
 
 permit_params :email, :name, :password, :password_confirmation,
-              :role, :gender, :gender_match,
+              :role, :gender, :gender_match, :description,
               :image, :remove_image,
               :workout_level, :workout_time, :gym_id
 
@@ -37,6 +37,7 @@ permit_params :email, :name, :password, :password_confirmation,
       end
       row :workout_level
       row :workout_time
+      row :description
       row :gym_id do |g|
         Gym.find(g.gym_id) if g.gym_id.present?
       end
@@ -80,6 +81,7 @@ permit_params :email, :name, :password, :password_confirmation,
              :label       => 'Associated Gym',
              :as          => :select,
              :collection  => Gym.all.sort_by{|gym| gym.name}
+         f.input :description
          f.input :image, :as => :file, :hint => f.object.image.present? ? image_tag(f.object.image.url(:thumb)) : ""
          if f.object.image?
            f.input :remove_image, as: :boolean, required: false, label: "Remove Image"
