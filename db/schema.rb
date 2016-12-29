@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222180256) do
+ActiveRecord::Schema.define(version: 20161229035637) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -78,32 +78,40 @@ ActiveRecord::Schema.define(version: 20161222180256) do
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255,   default: "",     null: false
-    t.string   "encrypted_password",     limit: 255,   default: "",     null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                     limit: 255,   default: "",     null: false
+    t.string   "encrypted_password",        limit: 255,   default: "",     null: false
+    t.string   "reset_password_token",      limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,     default: 0,      null: false
+    t.integer  "sign_in_count",             limit: 4,     default: 0,      null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.string   "role",                   limit: 255,   default: "none"
-    t.integer  "gym_id",                 limit: 4
-    t.string   "image_file_name",        limit: 255
-    t.string   "image_content_type",     limit: 255
-    t.integer  "image_file_size",        limit: 4
+    t.string   "current_sign_in_ip",        limit: 255
+    t.string   "last_sign_in_ip",           limit: 255
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.string   "role",                      limit: 255,   default: "none"
+    t.integer  "gym_id",                    limit: 4
+    t.string   "image_file_name",           limit: 255
+    t.string   "image_content_type",        limit: 255
+    t.integer  "image_file_size",           limit: 4
     t.datetime "image_updated_at"
-    t.text     "hours_in_gym",           limit: 65535
-    t.string   "name",                   limit: 255
-    t.string   "workout_level",          limit: 255
-    t.string   "gender",                 limit: 255
-    t.string   "auth_token",             limit: 255
-    t.string   "workout_time",           limit: 255
-    t.string   "gender_match",           limit: 255
-    t.string   "description",            limit: 255
+    t.text     "hours_in_gym",              limit: 65535
+    t.string   "name",                      limit: 255
+    t.string   "workout_level",             limit: 255
+    t.string   "gender",                    limit: 255
+    t.string   "auth_token",                limit: 255
+    t.string   "workout_time",              limit: 255
+    t.string   "gender_match",              limit: 255
+    t.string   "description",               limit: 255
+    t.string   "second_image_file_name",    limit: 255
+    t.string   "second_image_content_type", limit: 255
+    t.integer  "second_image_file_size",    limit: 4
+    t.datetime "second_image_updated_at"
+    t.string   "third_image_file_name",     limit: 255
+    t.string   "third_image_content_type",  limit: 255
+    t.integer  "third_image_file_size",     limit: 4
+    t.datetime "third_image_updated_at"
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", using: :btree

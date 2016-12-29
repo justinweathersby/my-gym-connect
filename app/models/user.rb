@@ -18,13 +18,32 @@ class User < ActiveRecord::Base
   WORKOUTTIMES = %i[morning afternoon night all]
   GENDERMATCH = %i[male female both]
 
-  has_attached_file :image, styles: { medium: "500x500>", thumb: "100x100>" }, s3_protocol: :https
+  has_attached_file :image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https
+  has_attached_file :second_image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https
+  has_attached_file :third_image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  validates_attachment_content_type :second_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  validates_attachment_content_type :third_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
   attr_writer :remove_image
   before_validation { self.image.clear if self.remove_image == '1' }
 
+  attr_writer :remove_second_image
+  before_validation { self.second_image.clear if self.remove_second_image == '1' }
+
+  attr_writer :remove_third_image
+  before_validation { self.third_image.clear if self.remove_third_image == '1' }
+
   def remove_image
     @remove_image || false
+  end
+
+  def remove_second_image
+    @remove_second_image || false
+  end
+
+  def remove_third_image
+    @remove_third_image || false
   end
 
   def role?(r)
