@@ -18,9 +18,12 @@ class User < ActiveRecord::Base
   WORKOUTTIMES = %i[morning afternoon night all]
   GENDERMATCH = %i[male female both]
 
-  has_attached_file :image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https
-  has_attached_file :second_image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https
-  has_attached_file :third_image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https
+  has_attached_file :image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https,
+                    :default_url => "https://s3.amazonaws.com/my-gym-connect-staging/users/images/missing.jpeg"
+  has_attached_file :second_image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https,
+                    :default_url => "https://s3.amazonaws.com/my-gym-connect-staging/users/images/missing.jpeg"
+  has_attached_file :third_image, styles: { medium: "700x700>", thumb: "150x150>" }, s3_protocol: :https,
+                    :default_url => "https://s3.amazonaws.com/my-gym-connect-staging/users/images/missing.jpeg"
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates_attachment_content_type :second_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   validates_attachment_content_type :third_image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
