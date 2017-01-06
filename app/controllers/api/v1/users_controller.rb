@@ -46,11 +46,11 @@ class Api::V1::UsersController < Api::ApiController
   private
 
   def sign_up_params
-    params[:user].permit(:name, :email, :password, :password_confirmation, :gym_code)
+    params[:user].permit(:name, :email, :password, :password_confirmation, :device_token, :device_type, :gym_code)
     # params.permit(:first_name,:last_name,:company_name,:organization_name ,:officer_name,:email, :password, :password_confirmation)
   end
 
   def update_params
-    params.permit(:id, :name, :password, :workout_level,  :image, :second_image, :third_image, :gender, :gender_match, :workout_time, :description, hours_in_gym: [])
+    params.permit(:id, :name, :password, :workout_level,  :image, :second_image, :third_image, :gender, :gender_match, :workout_time, :description, :device_token, :device_type, hours_in_gym: [])
   end
 end
