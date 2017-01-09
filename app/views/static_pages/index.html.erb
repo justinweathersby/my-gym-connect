@@ -15,8 +15,9 @@
               <div class="col-sm-7">
                   <div class="header-content">
                       <div class="header-content-inner">
-                          <h1>My Gym Connect is a an extension of your Gym. Allowing users to connect with people in thier Gym. As well as Gym owners connecting.</h1>
-                          <a href="#download" class="btn btn-outline btn-xl page-scroll">Start Now for Free!</a>
+                          <h1>My Gym Connect is a an extension of your Gym. Allowing users to connect with people in thier Gym.</h1>
+                          <!-- <a href="#download" class="btn btn-outline btn-xl page-scroll">Sign up now!</a> -->
+                          <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-outline btn-xl"  %>
                       </div>
                   </div>
               </div>
@@ -25,8 +26,6 @@
                       <div class="device-mockup iphone6_plus portrait white">
                           <div class="device">
                               <div class="screen">
-                                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                                  <!-- <img src="img/demo-screen-1.jpg" class="img-responsive" alt=""> -->
                                   <%= image_tag("demo-screen-connect.jpg", class: "img-responsive") %>
                               </div>
                               <div class="button">

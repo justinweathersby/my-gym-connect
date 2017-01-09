@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
   attr_writer :remove_third_image
   before_validation { self.third_image.clear if self.remove_third_image == '1' }
 
+  attr_accessor :gym_name, :gym_location, :gym_phone
+
   def remove_image
     @remove_image || false
   end

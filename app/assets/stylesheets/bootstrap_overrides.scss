@@ -13,3 +13,8 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ @import "new-age";
+
+.dropdown-menu > li > a{
+  text-decoration: none;
+}

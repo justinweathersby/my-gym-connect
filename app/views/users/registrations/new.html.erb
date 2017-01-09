@@ -1,88 +1,215 @@
-<h2>Sign up</h2>
+<div class="row">
+  <h2 class="signup-page-title">Gym Owner Signup</h2>
+</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+<div class="row">
+  <div class="col-sm-1">
   </div>
+  <div class="col-sm-3 align-self-center" style="padding-right:0;">
+    <div style="background:#FF5252; min-height: 40vh; width:100%;margin-top:5vh; border-radius: 10px 0 0 10px; padding:15px; color:white;text-align: right;">
+      <h2 style="margin-top:0;font-weight: bold; font-size:22px">Welcome to My Gym Connect!</h2>
+      <p style="font-size:14px">
+        Just a few steps to get you setup...
+      </p>
+    </div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
   </div>
+    <div class="col-sm-6" style="padding-left:0">
+      <div style=" width:100%;">
+        <div class="row">
+            <div class="col-sm-12 form-box">
+              <%= form_for(resource, as: resource_name,  url: registration_path(resource_name), :html => {:class => 'f1'}) do |f| %>
 
-  <% if params[:user_type] != "gymManager" %>
-    <div class="field">
-      <%= f.label :gender %> <br />
-      <%= f.select :gender, User::GENDERS %>
-    </div>
+                <!-- <h3>Register To Our App</h3>
+                <p>Fill in the form to get instant access</p> -->
+                <div class="f1-steps" style="padding-bottom: 40px;">
+                  <div class="f1-progress">
+                      <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
+                  </div>
+                  <div class="f1-step active">
+                    <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                    <p>profile</p>
+                  </div>
+                  <div class="f1-step">
+                    <div class="f1-step-icon"><i class="fa fa-users"></i></div>
+                    <p>gym</p>
+                  </div>
+                    <div class="f1-step">
+                    <div class="f1-step-icon"><i class="fa fa-cc-stripe"></i></div>
+                    <p>checkout</p>
+                  </div>
+                </div>
 
-    <div class="field">
-        <%= f.label :gym_id %> <br />
-        <%= f.select :gym_id, Gym.all.map { |gym| [gym.name, gym.id] } %>
-    </div>
+                <fieldset>
+                  <div class="col-sm-12" style="text-align:center">
+                    <div class="form-group">
+                        <%= f.email_field :email, autofocus: true, class: "f1-first-name form-control", placeholder: "Email", style: "margin:0 auto;"%>
+                    </div>
+                    <div class="form-group">
+                        <%= f.password_field :password, autocomplete: "off", class: "f1-first-name form-control", placeholder: "Password", style: "margin:0 auto;"  %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.password_field :password_confirmation, autocomplete: "off", class: "f1-first-name form-control", placeholder: "Confirm Password", style: "margin:0 auto;"  %>
+                    </div>
+                    <div class="row">
+                      <button type="button" class="btn btn-next" style="border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; ">Continue</button>
+                    </div>
+                  </div>
+                </fieldset>
 
-    <div class="field">
-      <%= f.label :workout_level %> <br />
-      <%= f.select :workout_level, User::WORKOUTLEVELS %>
-    </div>
+                <fieldset>
+                  <div class="col-sm-12" style="text-align:center">
+                    <div class="form-group">
+                      <%= f.text_field :gym_name, class: "f1-first-name form controll", placeholder: "Gym Name", style: "margin:0 auto;" %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.text_field :gym_location, class: "f1-first-name form controll", placeholder: "Location", style: "margin:0 auto;" %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.text_field :gym_phone, class: "f1-first-name form controll", placeholder: "Phone Number", style: "margin:0 auto;" %>
+                    </div>
+                    <div class="row">
+                      <button type="button" class="btn btn-previous" style="border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; ">Previous</button>
+                      <button type="button" class="btn btn-next" style="border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; ">Continue</button>
+                    </div>
+                  </div>
+                </fieldset>
 
-    <div class="field">
-      <%= f.label :image %>
-      <%= f.file_field :image, id: "user_image" %>
-      <% if f.object.image_file_name != nil %>
-        <br />
-        <div style="border:1px solid black; border-radius: 5px; padding:10px;">
-          <div id="user_image_preview"></div>
-          <div id="user_image_current">
-            <%=f.check_box(:remove_image) %>
-            <%= label :remove_image, "Remove Image" %>
-            <br />
-            <%= image_tag current_user.image.url(:medium)%>
-          </div>
+                    <fieldset>
+                      <div class="col-sm-12" style="text-align:center">
+                        <h4>All Processing is done via Stripe:</h4>
+                        <!-- <form action="/charge" method="POST">
+                          <script
+                            src="https://checkout.stripe.com/checkout.js"
+                            class="stripe-button"
+                            data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                            data-image="/square-image.png"
+                            data-name="Demo Site"
+                            data-description="2 widgets ($20.00)"
+                            data-amount="2000">
+                          </script>
+                        </form> -->
+
+                        <div class="row" style="padding-top:40px">
+                          <button type="button" class="btn btn-previous" style="border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; ">Previous</button>
+                          <%= f.submit "Submit", class: "btn btn-submit", style: "border: none; height:100%; border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none;" %>
+                        </div>
+                      </div>
+                    </fieldset>
+                <!-- <%= f.hidden_field :role, value: params[:user_type] %> -->
+                <%= f.hidden_field :role, value: "gymManager" %>
+              <% end %>
+            </div>
         </div>
-      <% end %>
+
     </div>
-
-    <div class="field">
-      <!-- <%= f.label :hours_in_gym %>
-      <%= f.text_field :hours_in_gym, multiple: true %> -->
-
-      <div style="max-height:150px; width:50%; overflow:auto; border: 1px solid black; border-radius: 5px;">
-        <%= f.label :hours_in_gym %>
-        <ul class="channels-list">
-          <% (0..167).each do |block| %>
-            <li><%= check_box_tag "user[hours_in_gym][]", block, f.object.hours_in_gym.include?(block), id: "user_hours_in_gym_#{block}" %> <%= calc_datetime_from_hours(block) %></li>
-          <% end %>
-        </ul>
-      </div>
+</div>
+    <div class="col-sm-2">
     </div>
-  <% end %>
+</div>
+<script>
 
-  <%= f.hidden_field :role, value: params[:user_type] %>
+function scroll_to_class(element_class, removed_height) {
+	var scroll_to = $(element_class).offset().top - removed_height;
+	if($(window).scrollTop() != scroll_to) {
+		$('html, body').stop().animate({scrollTop: scroll_to}, 0);
+	}
+}
+
+function bar_progress(progress_line_object, direction) {
+	var number_of_steps = progress_line_object.data('number-of-steps');
+	var now_value = progress_line_object.data('now-value');
+	var new_value = 0;
+	if(direction == 'right') {
+		new_value = now_value + ( 100 / number_of_steps );
+	}
+	else if(direction == 'left') {
+		new_value = now_value - ( 100 / number_of_steps );
+	}
+	progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
+}
+
+jQuery(document).ready(function() {
+
+    /*
+        Form
+    */
+    $('.f1 fieldset:first').fadeIn('slow');
+
+    $('.f1 input[type="text"], .f1 input[type="password"], .f1 textarea').on('focus', function() {
+    	$(this).removeClass('input-error');
+    });
+
+    // next step
+    $('.f1 .btn-next').on('click', function() {
+    	var parent_fieldset = $(this).parents('fieldset');
+    	var next_step = true;
+    	// navigation steps / progress steps
+    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+
+    	// fields validation
+    	parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
+    		if( $(this).val() == "" ) {
+    			$(this).addClass('input-error');
+    			next_step = false;
+    		}
+    		else {
+    			$(this).removeClass('input-error');
+    		}
+    	});
+    	// fields validation
+
+    	if( next_step ) {
+    		parent_fieldset.fadeOut(400, function() {
+    			// change icons
+    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+    			// progress bar
+    			bar_progress(progress_line, 'right');
+    			// show next step
+	    		$(this).next().fadeIn();
+	    		// scroll window to beginning of the form
+    			scroll_to_class( $('.f1'), 150 );
+	    	});
+    	}
+
+    });
+
+    // previous step
+    $('.f1 .btn-previous').on('click', function() {
+    	// navigation steps / progress steps
+    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+
+    	$(this).parents('fieldset').fadeOut(400, function() {
+    		// change icons
+    		current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+    		// progress bar
+    		bar_progress(progress_line, 'left');
+    		// show previous step
+    		$(this).prev().fadeIn();
+    		// scroll window to beginning of the form
+			scroll_to_class( $('.f1'), 150 );
+    	});
+    });
+
+    // submit
+    $('.f1').on('submit', function(e) {
+
+    	// fields validation
+    	$(this).find('input[type="text"], input[type="password"], textarea').each(function() {
+    		if( $(this).val() == "" ) {
+    			e.preventDefault();
+    			$(this).addClass('input-error');
+    		}
+    		else {
+    			$(this).removeClass('input-error');
+    		}
+    	});
+    	// fields validation
+
+    });
 
 
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+});
+</script>

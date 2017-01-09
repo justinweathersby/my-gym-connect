@@ -13,4 +13,7 @@ Rails.application.config.assets.precompile += [ 'vendor/simple-line-icons/css/si
                                                 'vendor/device-mockups/device-mockups.min.css',
                                                 'vendor/new-age.css',
                                                 'vendor/bootstrap/css/bootstrap.min.css',
-                                                'vendor/font-awesome/css/font-awesome.min.css']
+                                                'vendor/font-awesome/css/font-awesome.min.css',
+                                                'vendor/bootstrap-switch/css/bootstrap-switch.min.css'
+
+                                              ]

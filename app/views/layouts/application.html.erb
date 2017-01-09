@@ -6,26 +6,25 @@
     <%= stylesheet_link_tag    'application', media: 'all',
                                               'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Bootstrap Core CSS -->
+    <!-- <%= stylesheet_link_tag "vendor/bootstrap/css/bootstrap.min", :media => "all" %> -->
+    <%= stylesheet_link_tag "vendor/simple-line-icons/css/simple-line-icons", :media => "all" %>
+    <%= stylesheet_link_tag "vendor/bootstrap-switch/css/bootstrap-switch.min", :media => "all" %>
+
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
       </script>
     <![endif]-->
   </head>
-  <body>
-    <!-- <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <%= link_to "My Gym Connect", root_path, id: "logo" %> -->
-        <!-- <nav>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Home",   root_path %></li>
-            <li><%= link_to "Help",   '#' %></li>
-            <li><%= link_to "Log in", new_user_session_path %></li>
-          </ul>
-        </nav> -->
-      <!-- </div>
-    </header> -->
-    <div class="container" style="padding-top:50px">
-      <%= render 'layouts/navbar' %>
+  <body class="main-background">
+
+    <%= render 'layouts/navbar' %>
+    <div class="container" style="padding-top: 50px;">
       <!-- <p class="notice" style="padding-top:50px"><%= notice %></p> -->
       <!-- <p class="alert"><%= alert %></p> -->
        <%= flash_messages %>
