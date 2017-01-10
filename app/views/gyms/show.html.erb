@@ -34,3 +34,61 @@
   <strong>Hours of Operation:</strong>
   <%= @gym.hours_of_operation %>
 </p>
+
+<button id='linkButton'>Open Plaid Link</button>
+
+<script src="https://cdn.plaid.com/link/stable/link-initialize.js"></script>
+<script>
+
+// ---------Plaid Support-----------
+var linkHandler = Plaid.create({
+  env: 'tartan',
+  clientName: 'My Gym Connect',
+  key: '7201f0759c970f392be584a23d38e4',
+  product: 'auth',
+  selectAccount: true,
+  onSuccess: function(public_token, metadata) {
+    // Send the public_token and account ID to your app server.
+    console.log('public_token: ' + public_token);
+    console.log('account ID: ' + metadata.account_id);
+    console.log('metadata: ');
+    console.log(metadata);
+    console.log('account: ');
+    console.log(metadata.account);
+    console.log('institution: ');
+    console.log(metadata.institution);
+
+    var params = {
+        public_token: public_token,
+        account_id: metadata.account_id,
+        centAmount: 4000
+
+      };
+      // TODO find gym_id before now
+    $.post('<%= Rails.application.routes.url_helpers.gyms_path %>' + '/7' + "/subscription", params)
+      .done( function(data, status, xhr) {
+        // setMessage('The Face of Giving team would like to thank you for your donation and we hope you enjoy your selfie!');
+        // hideLoading();
+        console.log("SUCCESSFUL CREATION OF SUBSCRIPTION");
+        alert("alert successful plaid stripe");
+      })
+      .fail( function(xhr, status, err) {
+        console.log("FAILED SUBSCRIPTION");
+        alert("sub failed");
+        // hideLoading();
+        // setMessage('Uh oh we had a problem with your payment. Please try your donation again shortly or contact support@creativechatter.com to complete your donation.  Your selfie number is ' + selfie_id);
+        // // showUploadSelfieButton();
+        // // clearUploadSelfieButtonEvents();
+        // clearPaySelfieButtonEvents();
+        // $('#pay-selfie').click(function(){processing = false;});
+        // $('#pay-selfie').click(openPayHandler(handler));
+      });
+  },
+});
+
+// Trigger the Link UI
+document.getElementById('linkButton').onclick = function() {
+  linkHandler.open();
+};
+
+</script>

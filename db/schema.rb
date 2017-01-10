@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106192010) do
+ActiveRecord::Schema.define(version: 20170109074337) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20170106192010) do
     t.datetime "third_image_updated_at"
     t.string   "device_token",              limit: 255
     t.string   "device_type",               limit: 255
+    t.string   "stripeid",                  limit: 255
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", using: :btree

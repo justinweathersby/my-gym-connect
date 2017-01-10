@@ -37,6 +37,10 @@ Rails.application.routes.draw do
     resources :gyms
   end
 
+  resources :gyms do
+    post :subscription
+  end
+
   resources :users, only:[:show] #User profile
   resources :gyms, only: [:show]
 

@@ -27,6 +27,12 @@ module MyGymConnect
      end
     end
 
+    Plaid.config do |p|
+      p.client_id = '57cb27eccfbf49f67b01fd51'
+      p.secret = '64c18b997e308b9ce540c04cd9f5db'
+      p.env = :tartan  # or :production
+    end
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 

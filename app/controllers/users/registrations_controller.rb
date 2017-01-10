@@ -60,12 +60,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :image, :remove_image, :name, :workout_level, :gender, :gender_match, :gym_id, :workout_time, :description, :hours_in_gym => []])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:role, :image, :remove_image, :name, :workout_level, :gender, :gender_match, :gym_id, :workout_time, :description, :stripeid, :hours_in_gym => []])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:role, :image, :remove_image, :name, :workout_level, :gender, :gender_match, :gym_id, :workout_time, :description, :hours_in_gym => []])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:role, :image, :remove_image, :name, :workout_level, :gender, :gender_match, :gym_id, :workout_time, :description, :stripeid, :hours_in_gym => []])
   end
 
 

@@ -78,6 +78,7 @@
                     <fieldset>
                       <div class="col-sm-12" style="text-align:center">
                         <h4>All Processing is done via Stripe:</h4>
+                        <button id='linkButton'>Open Plaid Link</button>
                         <!-- <form action="/charge" method="POST">
                           <script
                             src="https://checkout.stripe.com/checkout.js"
@@ -97,7 +98,7 @@
                       </div>
                     </fieldset>
                 <!-- <%= f.hidden_field :role, value: params[:user_type] %> -->
-                <%= f.hidden_field :role, value: "gymManager" %>
+                <!-- <%= f.hidden_field :role, value: "gymManager" %> -->
               <% end %>
             </div>
         </div>

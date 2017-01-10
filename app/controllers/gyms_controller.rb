@@ -1,7 +1,8 @@
 class GymsController < InheritedResources::Base
   load_and_authorize_resource
-  before_action :find_user, except: [:show]
+  before_action :find_user, except: [:show, :subscription]
   before_action :authenticate_user!
+  respond_to :html, :json
   # before_action :authenticate_admin!, except: [:show, :new, :create]
   # skip_before_action :authenticate_user!, only: [:new, :create]
 
@@ -25,6 +26,41 @@ class GymsController < InheritedResources::Base
 
   def show
     @gym = Gym.find(params[:id])
+  end
+
+  def subscription
+    @gym = Gym.find(params[:gym_id])
+    @amount = params[:centAmount].try(:to_i)
+    @public_token  = params[:public_token]
+    @account_id = params[:account_id]
+
+    user = Plaid::User.exchange_token(@public_token, @account_id)
+    bank_account_token = user.stripe_bank_account_token
+
+    if current_user.stripeid == nil
+      customer = Stripe::Customer.create(
+        :email => current_user.email,
+        :source => bank_account_token
+      )
+      current_user.stripeid = customer.id
+    else
+      customer = Stripe::Customer.retrieve(current_user.stripeid)
+      customer.source = bank_account_token
+      customer.save
+    end
+    stripe_subscription = customer.subscriptions.create(:plan => 1, :metadata => {:gym => @gym.name})
+
+    redirect_to user_gyms_path(current_user)
+
+  rescue Stripe::CardError => e
+    Rails.logger.error("Stripe::CardError: #{e.message}")
+    render json: {error: e.message}.to_json, status: 400
+  rescue Stripe::InvalidRequestError => e
+    Rails.logger.error("Stripe::InvalidRequestError: #{e.message}")
+    render json: {error: e.message}.to_json, status: 400
+  rescue ActiveRecord::RecordNotFound => e
+    Rails.logger.error("ActiveRecord::RecordNotFound: #{e.message}")
+    render json: {error: e.message}.to_json, status: 400
   end
 
   # def edit
