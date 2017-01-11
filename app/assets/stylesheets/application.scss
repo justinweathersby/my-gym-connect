@@ -16,7 +16,14 @@
  */
 
 
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
  @import "font-awesome";
+ @import "simple-line-icons";
+
+ thead th {
+     background: white;
+ }
 
  @media (max-width: 415px) {
 

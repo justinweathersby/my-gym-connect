@@ -11,6 +11,18 @@ class GymsController < InheritedResources::Base
 
   def index
     @gyms = current_user.gyms
+    @gym_users_count = 0
+    @monthly_popularity = 0
+
+    @gyms.each do |g|
+      @gym_users_count += g.users.count
+      @monthly_popularity += g.users.where('created_at > ?', 30.days.ago).count
+    end
+    # TODO Check to see what happens in percentage for month is a decimal bc of rounding
+    puts @monthly_popularity
+    @monthly_popularity = ((@monthly_popularity.to_f / @gym_users_count) * 100).round()
+    puts @monthly_popularity.round(2)
+    puts @gym_users_count
   end
 
   def create
@@ -30,7 +42,7 @@ class GymsController < InheritedResources::Base
 
   def subscription
     @gym = Gym.find(params[:gym_id])
-    @amount = params[:centAmount].try(:to_i)
+    # @amount = params[:centAmount].try(:to_i)
     @public_token  = params[:public_token]
     @account_id = params[:account_id]
 
@@ -49,7 +61,10 @@ class GymsController < InheritedResources::Base
       customer.save
     end
     stripe_subscription = customer.subscriptions.create(:plan => 1, :metadata => {:gym => @gym.name})
-
+    puts "STRIPE SUB: ", stripe_subscription.to_json
+    @gym.active = true
+    @gym.subscription_id = stripe_subscription.id
+    @gym.save
     redirect_to user_gyms_path(current_user)
 
   rescue Stripe::CardError => e
@@ -70,7 +85,7 @@ class GymsController < InheritedResources::Base
   private
 
     def gym_params
-      params.require(:gym).permit(:name, :image, :remove_image, :contact_email, :location, :phone, :hours_of_operation)
+      params.require(:gym).permit(:name, :image, :remove_image, :contact_email, :location, :phone, :hours_of_operation, :active, :subscription_id)
     end
 
     def find_user

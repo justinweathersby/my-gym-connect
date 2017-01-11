@@ -16,7 +16,11 @@ gem 'aws-sdk', '~> 2.3'
 
 # Use SCSS for stylesheets
 gem 'activeadmin', github: 'activeadmin'
+gem 'bootstrap-sass', '3.3.1'
 gem 'sass-rails'
+gem 'compass-rails'
+gem "font-awesome-rails"
+gem 'simple-line-icons-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -24,9 +28,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
-gem 'bootstrap-sass', '3.3.1'
-gem "font-awesome-rails"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

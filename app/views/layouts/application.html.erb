@@ -3,19 +3,23 @@
   <head>
     <title>My Gym Connect</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                                              'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <!-- Bootstrap Core CSS -->
-    <!-- <%= stylesheet_link_tag "vendor/bootstrap/css/bootstrap.min", :media => "all" %> -->
-    <%= stylesheet_link_tag "vendor/simple-line-icons/css/simple-line-icons", :media => "all" %>
-    <%= stylesheet_link_tag "vendor/bootstrap-switch/css/bootstrap-switch.min", :media => "all" %>
 
+    <%= stylesheet_link_tag "vendor/bootstrap-switch/css/bootstrap-switch.min", :media => "all" %>
+    <%= stylesheet_link_tag "vendor/metronic/css/components.min", :media => "all" %>
+    <%= stylesheet_link_tag "vendor/metronic/css/plugins.min", :media => "all" %>
+
+    <%= stylesheet_link_tag "vendor/metronic/css/layout.min", :media => "all" %>
+    <%= stylesheet_link_tag "vendor/metronic/css/themes/blue.min", :media => "all" %>
 
     <!-- Custom Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
       </script>
@@ -25,10 +29,25 @@
 
     <%= render 'layouts/navbar' %>
     <div class="container" style="padding-top: 50px;">
-      <!-- <p class="notice" style="padding-top:50px"><%= notice %></p> -->
-      <!-- <p class="alert"><%= alert %></p> -->
        <%= flash_messages %>
       <%= yield %>
     </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script> -->
+    <!-- <script src="vendor/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script> -->
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <!-- <script src="../assets/global/scripts/app.min.js" type="text/javascript"></script> -->
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <!-- <script src="../assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
+    <script src="../assets/layouts/layout2/scripts/demo.min.js" type="text/javascript"></script>
+    <script src="../assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+    <script src="../assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script> -->
   </body>
 </html>

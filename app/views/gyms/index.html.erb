@@ -1,24 +1,124 @@
-<h1>Welcome to your gyms page</h1>
+<div style=" margin-top: 3vh; padding:15px;">
+  <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+              <div class="visual">
+                  <i class="fa fa-comments"></i>
+              </div>
+              <div class="details">
+                  <div class="number">
+                      <span data-counter="counterup" data-value="1349"><%= @gyms.count %></span>
+                  </div>
+                  <div class="desc"> Total Gyms </div>
+              </div>
+          </a>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+              <div class="visual">
+                  <i class="fa fa-bar-chart-o"></i>
+              </div>
+              <div class="details">
+                  <div class="number">
+                      <span data-counter="counterup" data-value="12,5"><%= @gym_users_count %></span> </div>
+                  <div class="desc"> Total Users </div>
+              </div>
+          </a>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+              <div class="visual">
+                  <i class="fa fa-shopping-cart"></i>
+              </div>
+              <div class="details">
+                  <div class="number">
+                      <span data-counter="counterup" data-value="549">0</span>
+                  </div>
+                  <div class="desc"> Push Notifications </div>
+              </div>
+          </a>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+              <div class="visual">
+                  <i class="fa fa-globe"></i>
+              </div>
+              <div class="details">
+                  <div class="number"> +
+                      <span data-counter="counterup" data-value="89"></span><%= @monthly_popularity %>% </div>
+                  <div class="desc"> Monthly Popularity </div>
+              </div>
+          </a>
+      </div>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @gyms.each do |gym| %>
-      <tr>
-        <td><%= gym.name %></td>
-        <td><%= link_to 'Show', gym %></td>
-        <td><%= link_to 'Edit', edit_user_gym_path(current_user, gym)%></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Add Gym', new_user_gym_path(current_user)%>
-
-<br>
+</div>
+<div class="col-sm-12">
+  <!-- BEGIN BORDERED TABLE PORTLET-->
+  <div class="portlet light portlet-fit ">
+      <div class="portlet-title">
+          <div class="caption">
+              <span class="caption-subject sbold uppercase" style="color: #455A64 !important">Your Gyms</span>
+          </div>
+          <div class="actions">
+              <div class="btn-group btn-group-devided" >
+                <%= link_to 'Add New Gym', new_user_gym_path(current_user), class:"btn green btn-outline btn-sm active", style: "color: white;text-decoration:none"%>
+              </div>
+          </div>
+      </div>
+      <div class="portlet-body" style="padding-top: 0;">
+          <div class="table-scrollable table-scrollable-borderless" style="overflow: visible;">
+              <table class="table table-hover table-light">
+                  <thead>
+                      <tr class="uppercase" >
+                          <th style="color: #455A64"> # </th>
+                          <th style="color: #455A64"> Gym Name </th>
+                          <th style="color: #455A64"> Access Code </th>
+                          <th style="text-align:center; color: #455A64"> Status </th>
+                          <th style="text-align:center; color: #455A64"> Actions </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <% @gyms.each_with_index  do |gym, index| %>
+                      <tr>
+                          <td><%= index+1 %></td>
+                          <td><%= gym.name %></td>
+                          <td><%= gym.access_code %></td>
+                          <td style="text-align:center">
+                              <span class="label label-sm <%= gym.active ? 'label-success' : 'label-warning' %>">
+                                <%= gym.active ? ' Active ' : 'Pending'%>
+                              </span>
+                              <!-- <span class="label label-sm label-success"> Active </span> -->
+                          </td>
+                          <!-- <td><%= gym.active %></td> -->
+                          <td>
+                            <div class="actions" style="text-align:center">
+                              <div class="btn-group">
+                                  <a class="btn dark btn-outline btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="text-decoration: none;"> Actions
+                                      <i class="fa fa-angle-down"></i>
+                                  </a>
+                                  <ul class="dropdown-menu pull-right">
+                                    <li>
+                                        <%= link_to 'View', gym%>
+                                    </li>
+                                    <li>
+                                      <%= link_to 'Edit', edit_user_gym_path(current_user, gym)%>
+                                        <!-- <a href="javascript:;"> Option 1</a> -->
+                                    </li>
+                                    <li class="divider"> </li>
+                                    <li>
+                                        <a href="javascript:;">Delete</a>
+                                    </li>
+                                  </ul>
+                              </div>
+                          </div>
+                         </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  <!-- END BORDERED TABLE PORTLET-->
+</div>

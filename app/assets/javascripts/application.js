@@ -14,4 +14,13 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require vendor/bootstrap-switch/js/bootstrap-switch.min
+//= require vendor/metronic/js/app.min
+//= require vendor/metronic/js/demo.min
+//= require vendor/metronic/js/layout.min
+//= require vendor/metronic/js/quick-nav.min
+//= require vendor/metronic/js/quick-sidebar.min
+//= require vendor/metronic/js/plugins/js.cookie.min
+//= require vendor/metronic/js/plugins/jquery-slimscroll/jquery.slimscroll.min
+//= require vendor/metronic/js/plugins/jquery.blockui.min
+//= require vendor/metronic/js/plugins/counterup/jquery.counterup.min
