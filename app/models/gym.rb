@@ -3,6 +3,7 @@ class Gym < ActiveRecord::Base
 
   belongs_to :user
   has_many :users
+  has_many :push_notifications
 
   validates :user_id, presence: true
 

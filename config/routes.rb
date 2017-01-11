@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     post :subscription
   end
 
+  resources :push_notifications
+
   resources :users, only:[:show] #User profile
   resources :gyms, only: [:show]
 

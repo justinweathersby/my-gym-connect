@@ -38,6 +38,9 @@ class GymsController < InheritedResources::Base
 
   def show
     @gym = Gym.find(params[:id])
+    @gym_users = @gym.users
+
+    @monthly_popularity = @gym_users.where('created_at > ? ', 30.days.ago).count.to_f / @gym_users.count
   end
 
   def subscription
@@ -77,6 +80,7 @@ class GymsController < InheritedResources::Base
     Rails.logger.error("ActiveRecord::RecordNotFound: #{e.message}")
     render json: {error: e.message}.to_json, status: 400
   end
+
 
   # def edit
   # end

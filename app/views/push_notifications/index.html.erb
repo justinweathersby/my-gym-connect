@@ -1,0 +1,147 @@
+<div style=" margin-top: 3vh; padding:15px;">
+<div class="col-sm-12">
+  <!-- BEGIN BORDERED TABLE PORTLET-->
+  <div class="portlet light portlet-fit ">
+      <div class="portlet-title">
+          <div class="caption">
+              <span class="caption-subject sbold uppercase" style="color: #455A64 !important">Push Notifications</span>
+          </div>
+          <div class="actions">
+              <div class="btn-group btn-group-devided" >
+                <%= link_to 'Create Push Notification', new_user_gym_path(current_user), class:"btn green btn-outline btn-sm active", style: "color: white;text-decoration:none"%>
+              </div>
+          </div>
+      </div>
+      <div class="portlet-body" style="padding-top: 0;">
+          <div class="table-scrollable table-scrollable-borderless" style="overflow: visible;">
+              <table class="table table-hover table-light">
+                  <thead>
+                      <tr class="uppercase" >
+                          <th style="color: #455A64"> # </th>
+                          <th style="color: #455A64"> Gym Name </th>
+                          <th style="color: #455A64"> Access Code </th>
+                          <th style="text-align:center; color: #455A64"> Status </th>
+                          <th style="text-align:center; color: #455A64"> Actions </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <% if @push_notifications.exists? %>
+                      <% @push_notifications.each do |notification| %>
+                        <tr>
+                          <td><%= notification.message %></td>
+                          <td class="text-lg-center">
+                            <%= notification.created_at.strftime("%m/%d/%Y at %I:%M%p") %>
+                            <!-- <%= link_to 'Destroy', notification, :class=>"btn btn-outline-danger", method: :delete, data: { confirm: 'Are you sure?' } if can? :manage, notification %> -->
+                          </td>
+                          <td class="text-lg-center">
+                            <%= link_to 'Remove', notification, :class=>"btn btn-sm btn-outline-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+                          </td>
+                        </tr>
+
+                      <% end %>
+                    <% else %>
+                      <tr>
+                        <td colspan="2" class="text-sm-center">
+                          You Havent Sent Any Push Notifications Yet
+                        </td>
+                      </tr>
+                    <% end %>
+                    <!-- %>
+                      <tr>
+                          <
+                          <td style="text-align:center">
+
+                          </td>
+                          <td>
+                            <div class="actions" style="text-align:center">
+                              <div class="btn-group">
+                                  <a class="btn dark btn-outline btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="text-decoration: none;"> Actions
+                                      <i class="fa fa-angle-down"></i>
+                                  </a>
+                                  <ul class="dropdown-menu pull-right">
+                                    <li>
+
+                                    </li>
+                                    <li>
+
+                                    </li>
+                                    <li class="divider"> </li>
+                                    <li>
+                                        <a href="javascript:;">Delete</a>
+                                    </li>
+                                  </ul>
+                              </div>
+                          </div>
+                         </td>
+                      </tr>
+                     -->
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  <!-- END BORDERED TABLE PORTLET-->
+</div>
+
+<!-- <div class="col-lg-10 offset-lg-1">
+  <div class="row">
+    <h1 class="text-md-center" style="padding: 1rem 0">Push Notifications</h1>
+  </div>
+
+  <div class="row">
+    <% if current_user.has_role? :admin %>
+      <div class="pull-right">
+        <%= link_to  new_push_notification_path, :class=>"btn btn-warning"  do %>
+          Create Push Notification
+        <% end %>
+      </div>
+    <% end %>
+    <div class="text-lg-left">
+      <%= link_to root_path, :class=>"btn btn-danger" do  %>
+        <i class="fa fa-chevron-circle-left fa-fw" aria-hidden="true"></i>Back
+      <% end %>
+    </div>
+  </div>
+
+<div class="row" style="padding: 2rem 0">
+  <table class="table table-hover" style="background-color: white; padding-top:5rem; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-radius: 0rem 0rem .25rem .25rem">
+    <thead>
+      <tr>
+        <th>Message</th>
+        <th class="text-lg-center">
+          Date Sent
+        </th>
+        <th class="text-lg-center">
+          Actions
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if @push_notifications.exists? %>
+        <% @push_notifications.each do |notification| %>
+          <tr>
+            <td><%= notification.message %></td>
+            <td class="text-lg-center">
+              <%= notification.created_at.strftime("%m/%d/%Y at %I:%M%p") %>
+            </td>
+            <td class="text-lg-center">
+              <%= link_to 'Remove', notification, :class=>"btn btn-sm btn-outline-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="2" class="text-sm-center">
+            You Havent Sent Any Push Notifications Yet
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @push_notifications, :renderer => BootstrapPagination::Rails, class: 'pagination-sm text-lg-center' %>
+
+  </div>
+
+</div> -->
