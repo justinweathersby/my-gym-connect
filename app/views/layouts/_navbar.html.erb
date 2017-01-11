@@ -26,7 +26,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <% if current_user and current_user.has_role?(:gymManager)%>
                   <li><%= link_to "Dashboard", user_gyms_path(current_user.id)  %></li>
-                  <li><%= link_to "Push Notifications", push_notifications_path %></li>
+                  <!-- <li><%= link_to "Push Notifications", push_notifications_path %></li> -->
                 <% end %>
                   <!-- <li>
                       <a class="page-scroll" href="#features">Features</a>

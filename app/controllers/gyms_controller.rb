@@ -11,22 +11,21 @@ class GymsController < InheritedResources::Base
 
   def index
     @gyms = current_user.gyms
+    @gym_push_notifications_count = 0
     @gym_users_count = 0
     @monthly_popularity = 0
 
     @gyms.each do |g|
       @gym_users_count += g.users.count
       @monthly_popularity += g.users.where('created_at > ?', 30.days.ago).count
+      @gym_push_notifications_count += g.push_notifications.count
     end
-    # TODO Check to see what happens in percentage for month is a decimal bc of rounding
-    puts @monthly_popularity
     @monthly_popularity = ((@monthly_popularity.to_f / @gym_users_count) * 100).round()
-    puts @monthly_popularity.round(2)
-    puts @gym_users_count
   end
 
   def create
     @gym = current_user.gyms.build(gym_params)
+    @gym.generate_access_code
     if @gym.save
       flash[:success] = "Gym created!"
       redirect_to user_gym_path(@user,@gym)
@@ -39,7 +38,8 @@ class GymsController < InheritedResources::Base
   def show
     @gym = Gym.find(params[:id])
     @gym_users = @gym.users
-
+    @gym_users_pages = @gym_users.paginate(:page => params[:users_page], :per_page => 5)
+    @gym_push_notifications = @gym.push_notifications.paginate(:page => params[:notifications_page], :per_page => 5)
     @monthly_popularity = @gym_users.where('created_at > ? ', 30.days.ago).count.to_f / @gym_users.count
   end
 

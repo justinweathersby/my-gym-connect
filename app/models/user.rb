@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :gyms, dependent: :destroy
   belongs_to :gym
-
-  serialize :hours_in_gym, Array
+  # serialize :hours_in_gym, Array
 
   after_create :generate_auth_token
 

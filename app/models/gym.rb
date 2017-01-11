@@ -6,6 +6,8 @@ class Gym < ActiveRecord::Base
   has_many :push_notifications
 
   validates :user_id, presence: true
+  validates :name, presence: true
+  validates :contact_email, presence: true
 
   after_create :generate_access_code
 

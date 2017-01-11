@@ -20,10 +20,31 @@
  @import "bootstrap";
  @import "font-awesome";
  @import "simple-line-icons";
+ @import "vendor/bootstrap-fileinput/bootstrap-fileinput";
+
+ .alert-info{
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
+
 
  thead th {
      background: white;
  }
+
+.btn-blue {
+  border-color: #0288D1 !important;
+  background-color: #03A9F4 !important;
+
+}
+
+.dataTables_paginate .pagination>li>a,
+.dataTables_paginate .pagination>li>span {
+  border-color: #0288D1 !important;
+}
+.pagination>li.active>span{
+  background-color: #03A9F4 !important;
+  color: #fff;
+}
 
  @media (max-width: 415px) {
 

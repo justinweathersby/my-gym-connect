@@ -1,53 +1,24 @@
 <div style=" margin-top: 3vh; padding:15px;">
   <div class="row">
-    <h1 class="page-title"> <%= @gym.name %>
-        <small>Member Since: 01/01/2017</small>
-    </h1>
-  </div>
-  <!-- <div class="col-xs-12"> -->
+    <div class="col-xs-12">
+      <div class="col-xs-6">
+        <h1 class="page-title"> <%= @gym.name %>
+          <small><%= @gym.created_at.strftime("Member Since: %m/%d/%Y") %></small>
+        </h1>
+      </div>
+      <div class="col-xs-6" style="text-align: right; padding-right: 0;">
+        <div class="actions">
+            <div class="btn-group btn-group-devided" >
+              <% unless @gym.active %>
+                <button id='linkButton' class="btn green btn-outline btn-sm active" style="border-color: #941010; background-color: #FF5252; text-decoration:none">Activate Gym</button>
+              <% end %>
+              <%= link_to 'Edit Gym', edit_user_gym_path(current_user, @gym), class:"btn green btn-outline btn-sm active", style: "border-color: #941010; background-color: #FF5252; text-decoration:none"%>
 
-
-  <!-- <div class="row">
-    <div class="page-bar">
-                    <ul class="page-breadcrumb">
-                        <li>
-                            <i class="icon-home"></i>
-                            <a href="index.html">Home</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            <span>Dashboard</span>
-                        </li>
-                    </ul>
-                    <div class="page-toolbar">
-                        <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
-                                <i class="fa fa-angle-down"></i>
-                            </button>
-                            <ul class="dropdown-menu pull-right" role="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-bell"></i> Action</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-shield"></i> Another action</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-user"></i> Something else here</a>
-                                </li>
-                                <li class="divider"> </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-bag"></i> Separated link</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            </div>
+        </div>
+      </div>
     </div>
-  </div> -->
-    <!-- </div> -->
+  </div>
   <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="dashboard-stat dashboard-stat-v2">
@@ -55,11 +26,11 @@
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-          <a class="dashboard-stat dashboard-stat-v2 red" href="#">
-              <div class="visual">
-                  <i class="fa fa-bar-chart-o"></i>
+          <a class="dashboard-stat dashboard-stat-v2" href="#" style="background: #455A64; color: white">
+              <div class="visual" style="opacity: .1;">
+                  <i class="fa fa-users"></i>
               </div>
-              <div class="details">
+              <div class="details" style="">
                   <div class="number">
                       <span data-counter="counterup" data-value="12,5"><%= @gym_users.count %></span> </div>
                   <div class="desc"> Total Users </div>
@@ -69,7 +40,7 @@
       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
           <a class="dashboard-stat dashboard-stat-v2 green" href="#">
               <div class="visual">
-                  <i class="fa fa-shopping-cart"></i>
+                  <i class="fa fa-envelope"></i>
               </div>
               <div class="details">
                   <div class="number">
@@ -82,11 +53,11 @@
       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
           <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
               <div class="visual">
-                  <i class="fa fa-globe"></i>
+                  <i class="fa fa-line-chart"></i>
               </div>
               <div class="details">
                   <div class="number"> +
-                      <span data-counter="counterup" data-value="89"></span><%= @monthly_popularity %>% </div>
+                      <span data-counter="counterup" data-value="89"></span><%= @monthly_popularity >= 0 ? @monthly_popularity : 0%>% </div>
                   <div class="desc"> Monthly Growth</div>
               </div>
           </a>
@@ -94,103 +65,9 @@
   </div>
 
 </div>
-<div class="col-sm-12">
-  <!-- BEGIN BORDERED TABLE PORTLET-->
-  <div class="portlet light portlet-fit ">
-      <div class="portlet-title">
-          <div class="caption">
-              <span class="caption-subject sbold uppercase" style="color: #455A64 !important"><%= @gym.name %></span>
-          </div>
-          <div class="actions">
-              <div class="btn-group btn-group-devided" >
-                <%= link_to 'Edit Gym', edit_gym_path(@gym), class:"btn green btn-outline btn-sm active", style: "color: white;text-decoration:none"%>
-              </div>
-          </div>
-      </div>
-      <div class="portlet-body" style="padding-top: 0;">
-          <div class="table-scrollable table-scrollable-borderless" style="overflow: visible;">
-              <table class="table table-hover table-light">
-                  <thead>
-                      <tr class="uppercase" >
-                          <th style="color: #455A64"> # </th>
-                          <th style="color: #455A64"> Gym Name </th>
-                          <th style="color: #455A64"> Access Code </th>
-                          <th style="text-align:center; color: #455A64"> Status </th>
-                          <th style="text-align:center; color: #455A64"> Actions </th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                    <% @gym.push_notifications.each_with_index  do |notification, index| %>
-                      <tr>
-                          <td><%= index+1 %></td>
-                          <td><%= notification.message %></td>
-                          <td><%= notification.user_id %></td>
+<%= render "gyms/partials/gym_push_notifications_table" %>
 
-                          <!-- <td><%= gym.active %></td> -->
-                          <td>
-                            <div class="actions" style="text-align:center">
-                              <div class="btn-group">
-                                  <a class="btn dark btn-outline btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="text-decoration: none;"> Actions
-                                      <i class="fa fa-angle-down"></i>
-                                  </a>
-                                  <ul class="dropdown-menu pull-right">
-
-                                    <li class="divider"> </li>
-                                    <li>
-                                        <a href="javascript:;">Delete</a>
-                                    </li>
-                                  </ul>
-                              </div>
-                          </div>
-                         </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-              </table>
-          </div>
-      </div>
-  </div>
-  <!-- END BORDERED TABLE PORTLET-->
-</div>
-
-<p>
-  <strong>Name of Gym:</strong>
-  <%= @gym.name %>
-</p>
-<p>
-  <%= @gym.created_at.strftime("Member Since: %m/%d/%Y") %>
-</p>
-<% if @gym.image?%>
-  <br />
-  <%= image_tag @gym.image.url(:thumb) %>
-  <br />
-<% else %>
-  <p>
-    <strong>NO LOGO UPLOADED</strong>
-  </p>
-<% end %>
-<p>
-  <strong>Gym Access Code (For Users):</strong>
-  <%= @gym.access_code %>
-</p>
-<p>
-  <strong>Contact Email:</strong>
-  <%= @gym.contact_email %>
-</p>
-<p>
-  <strong>Phone:</strong>
-  <%= @gym.phone %>
-</p>
-<p>
-  <strong>Location:</strong>
-  <%= @gym.location %>
-</p>
-<p>
-  <strong>Hours of Operation:</strong>
-  <%= @gym.hours_of_operation %>
-</p>
-
-<button id='linkButton'>Open Plaid Link</button>
+<%= render "gyms/partials/gym_users_table" %>
 
 <script src="https://cdn.plaid.com/link/stable/link-initialize.js"></script>
 <script>

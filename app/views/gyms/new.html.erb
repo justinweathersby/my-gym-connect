@@ -1,76 +1,99 @@
-<h1>New Gym</h1>
+<div class="col-xs-12 col-lg-8 col-lg-offset-2" style=" margin-top: 3vh; padding:15px;">
+  <!-- <div class="row">
+    <div class="col-xs-12">
+      <div class="col-xs-8">
+        <h1 class="page-title"> Add New Gym
+          <small></small>
+        </h1>
+      </div>
+    </div>
+  </div> -->
+  <div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-red-sunglo">
+            <span class="caption-subject bold uppercase" style="font-size:24px">Add New Gym</span>
+        </div>
+        <div class="actions">
+            <a class="btn btn-circle btn-icon-only blue" href="javascript:;">
+                <i class="icon-cloud-upload"></i>
+            </a>
+            <a class="btn btn-circle btn-icon-only red" href="javascript:;">
+                <i class="icon-trash"></i>
+            </a>
+            <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title=""> </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+      <%= form_for([@user, @gym]) do |f| %>
+        <div class="form-body" style="padding-top: 0;">
+          <div class="form-group form-md-line-input has-success form-md-floating-label" style="padding-bottom: 25px;">
+            <div class="input-icon right" style="width: 100%">
+              <%= f.text_field :name, class: "form-control", style: "width:100%", :required => true %>
+              <label for="form_control_1">Name</label>
+              <span class="help-block">Name of Gym your adding...</span>
+              <i class="fa fa-id-card-o"></i>
+            </div>
+          </div>
 
-<%= form_for([@user, @gym]) do |f| %>
-  <% if @gym.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@gym.errors.count, "error") %> prohibited this gym from being saved:</h2>
+          <div class="form-group form-md-line-input has-success form-md-floating-label" style="padding-bottom: 25px;">
+            <div class="input-icon right" style="width: 100%">
+              <%= f.text_field :contact_email, class: "form-control", style: "width:100%", :value => current_user.email, :required => true %>
+              <label for="form_control_1">Email</label>
+              <span class="help-block">Contact email for Gym...</span>
+              <i class="fa fa-envelope-o"></i>
+            </div>
+          </div>
 
-      <ul>
-      <% @gym.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <div class="form-group form-md-line-input has-success form-md-floating-label" style="padding-bottom: 25px;">
+            <div class="input-icon right" style="width: 100%">
+              <%= f.phone_field :phone, class: "form-control", style: "width:100%" %>
+              <label for="form_control_1">Telephone</label>
+              <span class="help-block">Contact number for Gym...</span>
+              <i class="icon-phone"></i>
+            </div>
+          </div>
+
+          <div class="form-group form-md-line-input has-success form-md-floating-label" style="padding-bottom: 25px;">
+            <div class="input-icon right" style="width: 100%">
+              <%= f.text_field :location, class: "form-control", style: "width:100%" %>
+              <label for="form_control_1">Location</label>
+              <span class="help-block">Short Gym location, ex: Charleston, SC</span>
+              <i class="icon-home"></i>
+            </div>
+          </div>
+
+          <div class="row">
+          <div class="form-group ">
+            <div class="col-xs-12 col-md-8 col-md-offset-2" style="text-align:center">
+              <h4 style="color:#555">Logo Image Upload</h4>
+
+                  <div class="fileinput fileinput-new" data-provides="fileinput">
+                      <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                      </div>
+                      <div>
+                          <span class="btn red btn-outline btn-file">
+                              <span class="fileinput-new"> Select image </span>
+                              <span class="fileinput-exists"> Change </span>
+                              <%= f.file_field :image %>
+                            </span>
+
+                          <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                      </div>
+                  </div>
+                  <!-- <div class="clearfix margin-top-10" style="font-size:12px">
+                      <span class="label label-success">NOTE!</span> Image preview only works in IE10+, FF3.6+, Safari6.0+, Chrome6.0+ and Opera11.1+. </div> -->
+              </div>
+          </div>
+          </div>
+        </div>
+        <div class="row" style="border-top:1px solid #eee; padding: 12px; padding-bottom: 0;">
+          <!-- <div class="form-actions"> -->
+          <%= f.submit :class => "btn btn-blue", :style => 'background: #3598dc' %>
+          <%= link_to 'Cancel', user_gyms_path(current_user), :class => "btn red", :style => 'text-decoration:none' %>
+          <!-- </div> -->
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :contact_email %><br />
-    <%= f.text_field :contact_email, :value => current_user.email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.phone_field :phone %>
-  </div>
-
-  <div class="field">
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  </div>
-
-  <div class="field">
-    <%= f.label :hours_of_operation %>
-    <%= f.text_field :hours_of_operation %>
-  </div>
-
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image, id: "gym_image" %>
-    <div style="border:1px solid black; border-radius: 5px; padding:10px;">
-      <div id="gym_image_preview"></div>
     </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', user_gyms_path(current_user) %>
-
-<script>
-$(function() {
-  $('#gym_image').on('change', function(event) {
-    var files = event.target.files;
-    var image = files[0]
-    var reader = new FileReader();
-    reader.onload = function(file) {
-      var img = new Image();
-      console.log(file);
-      img.src = file.target.result;
-      img.width = 400;
-      $('#gym_image_preview').html(img)
-      $('div.gym_image_preview > img').attr('width', '440');
-    }
-    reader.readAsDataURL(image);
-    console.log(files);
-  });
-});
-
-
-</script>
+</div>

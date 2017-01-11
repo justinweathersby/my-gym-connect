@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require vendor/bootstrap-switch/js/bootstrap-switch.min
+//= require vendor/bootstrap-fileinput/bootstrap-fileinput
 //= require vendor/metronic/js/app.min
 //= require vendor/metronic/js/demo.min
 //= require vendor/metronic/js/layout.min

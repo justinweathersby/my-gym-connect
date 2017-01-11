@@ -1,0 +1,69 @@
+<div class="col-sm-12">
+  <!-- BEGIN BORDERED TABLE PORTLET-->
+  <div class="portlet light portlet-fit ">
+      <div id="gym_notifications_table" class="portlet-title">
+          <div class="caption">
+              <span class="caption-subject sbold uppercase" style="color: #455A64 !important">Push Notifications</span>
+          </div>
+          <div class="actions">
+              <div class="btn-group btn-group-devided" >
+                <%= link_to 'Create Notification', new_push_notification_path(@gym), class:"btn btn-outline btn-sm active btn-blue", style: "text-decoration:none"%>
+
+              </div>
+          </div>
+
+      </div>
+      <div class="portlet-body" style="padding-top: 0;">
+          <div class="table-scrollable table-scrollable-borderless" style="overflow: visible;">
+              <table class="table table-hover table-light">
+                  <thead>
+                      <tr class="uppercase" >
+                          <th style="color: #455A64"> # </th>
+                          <th style="color: #455A64"> Notification </th>
+                          <th style="text-align:center; color: #455A64"> Sent By </th>
+                          <th style="text-align:center; color: #455A64"> Actions </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <% @gym_push_notifications.each_with_index  do |notification, index| %>
+                      <tr>
+                          <td><%= index+1 %></td>
+                          <td><%= notification.message %></td>
+                          <td><%= User.find(notification.user_id).name %></td>
+                          <td>
+                            <div class="actions" style="text-align:center">
+                              <div class="btn-group">
+                                  <a class="btn dark btn-outline btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="text-decoration: none;"> Actions
+                                      <i class="fa fa-angle-down"></i>
+                                  </a>
+                                  <ul class="dropdown-menu pull-right">
+
+                                    <!-- <li class="divider"> </li> -->
+                                    <li>
+                                        <a href="javascript:;">Delete</a>
+                                    </li>
+                                  </ul>
+                              </div>
+                          </div>
+                         </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+              </table>
+          </div>
+          <div class="row">
+            <div class="col-md-5 col-sm-12">
+              <!-- <div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">
+                Showing 1 to 10 of 57 entries
+              </div> -->
+            </div>
+            <div class="col-md-7 col-sm-12">
+              <div class="dataTables_paginate paging_bootstrap_number" id="sample_1_paginate">
+                <%= will_paginate @gym_push_notifications, :renderer => BootstrapPagination::Rails, class: 'pagination-sm text-center', :param_name => 'notifications_page', :params => {:anchor => 'gym_notifications_table'} %>
+              </div>
+            </div>
+        </div>
+      </div>
+  </div>
+  <!-- END BORDERED TABLE PORTLET-->
+</div>
