@@ -25,76 +25,7 @@
         </div>
     </div>
     <div class="portlet-body form">
-      <%= form_for([@user, @gym]) do |f| %>
-        <div class="form-body" style="padding-top: 0;">
-          <div class="form-group form-md-line-input has-success form-md-floating-label" style="padding-bottom: 25px;">
-            <div class="input-icon right" style="width: 100%">
-              <%= f.text_field :name, class: "form-control", style: "width:100%", :required => true %>
-              <label for="form_control_1">Name</label>
-              <span class="help-block">Name of Gym your adding...</span>
-              <i class="fa fa-id-card-o"></i>
-            </div>
-          </div>
-
-          <div class="form-group form-md-line-input has-success form-md-floating-label" style="padding-bottom: 25px;">
-            <div class="input-icon right" style="width: 100%">
-              <%= f.text_field :contact_email, class: "form-control", style: "width:100%", :value => current_user.email, :required => true %>
-              <label for="form_control_1">Email</label>
-              <span class="help-block">Contact email for Gym...</span>
-              <i class="fa fa-envelope-o"></i>
-            </div>
-          </div>
-
-          <div class="form-group form-md-line-input has-success form-md-floating-label" style="padding-bottom: 25px;">
-            <div class="input-icon right" style="width: 100%">
-              <%= f.phone_field :phone, class: "form-control", style: "width:100%" %>
-              <label for="form_control_1">Telephone</label>
-              <span class="help-block">Contact number for Gym...</span>
-              <i class="icon-phone"></i>
-            </div>
-          </div>
-
-          <div class="form-group form-md-line-input has-success form-md-floating-label" style="padding-bottom: 25px;">
-            <div class="input-icon right" style="width: 100%">
-              <%= f.text_field :location, class: "form-control", style: "width:100%" %>
-              <label for="form_control_1">Location</label>
-              <span class="help-block">Short Gym location, ex: Charleston, SC</span>
-              <i class="icon-home"></i>
-            </div>
-          </div>
-
-          <div class="row">
-          <div class="form-group ">
-            <div class="col-xs-12 col-md-8 col-md-offset-2" style="text-align:center">
-              <h4 style="color:#555">Logo Image Upload</h4>
-
-                  <div class="fileinput fileinput-new" data-provides="fileinput">
-                      <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
-                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
-                      </div>
-                      <div>
-                          <span class="btn red btn-outline btn-file">
-                              <span class="fileinput-new"> Select image </span>
-                              <span class="fileinput-exists"> Change </span>
-                              <%= f.file_field :image %>
-                            </span>
-
-                          <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
-                      </div>
-                  </div>
-                  <!-- <div class="clearfix margin-top-10" style="font-size:12px">
-                      <span class="label label-success">NOTE!</span> Image preview only works in IE10+, FF3.6+, Safari6.0+, Chrome6.0+ and Opera11.1+. </div> -->
-              </div>
-          </div>
-          </div>
-        </div>
-        <div class="row" style="border-top:1px solid #eee; padding: 12px; padding-bottom: 0;">
-          <!-- <div class="form-actions"> -->
-          <%= f.submit :class => "btn btn-blue", :style => 'background: #3598dc' %>
-          <%= link_to 'Cancel', user_gyms_path(current_user), :class => "btn red", :style => 'text-decoration:none' %>
-          <!-- </div> -->
-        </div>
-      <% end %>
+      <%= render "form" %>
     </div>
   </div>
 </div>
