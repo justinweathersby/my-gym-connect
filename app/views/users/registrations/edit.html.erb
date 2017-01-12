@@ -17,73 +17,7 @@
     <%= f.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= f.label :gender %> <br />
-    <%= f.select :gender, User::GENDERS %>
-  </div>
 
-  <div class="field">
-    <%= f.label :workout_level %> <br />
-    <%= f.select :workout_level, User::WORKOUTLEVELS %>
-  </div>
-
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image, id: "user_image" %>
-    <% if f.object.image_file_name != nil %>
-      <br />
-      <div style="border:1px solid black; border-radius: 5px; padding:10px;">
-        <div id="user_image_preview"></div>
-        <div id="user_image_current">
-          <%=f.check_box(:remove_image) %>
-          <%= label :remove_image, "Remove Image" %>
-          <br />
-          <%= image_tag current_user.image.url(:medium)%>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <!-- <%= f.label :hours_in_gym %>
-    <%= f.text_field :hours_in_gym, multiple: true %> -->
-
-    <div style="max-height:150px; width:50%; overflow:auto; border: 1px solid black; border-radius: 5px;">
-      <%= f.label :hours_in_gym %>
-      <ul class="channels-list">
-        <% (0..167).each do |block| %>
-          <li><%= check_box_tag "user[hours_in_gym][]", block, f.object.hours_in_gym.include?(block), id: "user_hours_in_gym_#{block}" %> <%= calc_datetime_from_hours(block) %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-
-
-  <!-- <div class="field" style="padding-top:10px">
-    <h3>Select workout blocks</h3>
-    <table>
-      <tr>
-        <th>Sunday</th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wensday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-      </tr>
-      <% block_count = 0 %>
-      <tr>
-      <% (0..6).each do |i| %>
-        <td>
-
-          <%= select_hour(@monday_opening_hour, prompt: 'Choose hour block') %>
-
-        </td>
-      <% end %>
-        </tr>
-
-    </table>
-  </div> -->
 
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
@@ -113,30 +47,3 @@
 <hr />
 <h3>Cancel my account</h3>
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "This will delete you from our system FOREVER...Are you sure?" }, method: :delete %></p>
-
-
-<!-- <%= link_to "Back", :back %> -->
-
-<script>
-$(function() {
-  $('#user_image').on('change', function(event) {
-    var files = event.target.files;
-    var image = files[0]
-    var reader = new FileReader();
-    reader.onload = function(file) {
-      var img = new Image();
-      console.log(file);
-      img.src = file.target.result;
-      img.width = 400;
-      $('#user_image_preview').html(img)
-      $('div.user_image_preview > img').attr('width', '440');
-
-      $('#user_image_current').hide();
-    }
-    reader.readAsDataURL(image);
-    console.log(files);
-  });
-});
-
-
-</script>

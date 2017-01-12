@@ -20,7 +20,9 @@ class GymsController < InheritedResources::Base
       @monthly_popularity += g.users.where('created_at > ?', 30.days.ago).count
       @gym_push_notifications_count += g.push_notifications.count
     end
-    @monthly_popularity = ((@monthly_popularity.to_f / @gym_users_count) * 100).round()
+    if @gym_users_count > 0
+      @monthly_popularity = ((@monthly_popularity.to_f / @gym_users_count) * 100).round()
+    end
   end
 
   def create
@@ -40,7 +42,11 @@ class GymsController < InheritedResources::Base
     @gym_users = @gym.users
     @gym_users_pages = @gym_users.paginate(:page => params[:users_page], :per_page => 5)
     @gym_push_notifications = @gym.push_notifications.paginate(:page => params[:notifications_page], :per_page => 5)
-    @monthly_popularity = @gym_users.where('created_at > ? ', 30.days.ago).count.to_f / @gym_users.count
+    if @gym_users.count > 0
+      @monthly_popularity = (@gym_users.where('created_at > ? ', 30.days.ago).count.to_f / @gym_users.count).round()
+    else
+      @monthly_popularity = 0
+    end
   end
 
   def subscription

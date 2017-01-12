@@ -1,4 +1,67 @@
-<h2>Log in</h2>
+<div class="row" style="padding-top:40px">
+  <!-- <div class="col-sm-4 align-self-center" style="padding-right:0;">
+    <div style="background:#FF5252; min-height: 40vh; width:100%;margin-top:5vh; border-radius: 10px 0 0 10px !important; padding:15px; color:white;text-align: right;">
+      <h2 style="margin-top:0;font-weight: bold; font-size:22px">Login As Gym Owner</h2>
+      <p style="font-size:14px">
+        Just a few steps to get you logged in...
+      </p>
+    </div>
+
+  </div> -->
+    <div class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3" style="padding-left:0; padding-right:0">
+      <div style=" width:100%;">
+        <div class="row" style="margin-left:0; margin-right:0">
+            <div class="col-sm-12 form-box">
+              <%= form_for(resource, as: resource_name,  url: session_path(resource_name), :html => {:class => 'f1', :style => ''}) do |f| %>
+              <div style="visibility: hidden; height:0;">
+                <%= flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages %>
+              </div>
+                <div class="f1-steps" style="padding-bottom: 20px; margin-top:0">
+
+                  <div class="f1-step active" style="float:none; margin: 0 auto">
+                    <!-- <%= image_tag("gymconnect-transparent-800.png", class: "img-responsive") %> -->
+                    <div class="f1-step-icon" style="background: #455A64; border-radius: 50% !important"><i class="fa fa-user"></i></div>
+
+                  </div>
+                </div>
+                <div class="form-group form-md-line-input  form-md-floating-label" style="padding-bottom: 0px; margin-bottom:0">
+                  <div class="input-group" style="">
+                    <%= f.text_field :email, class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px;">Email</label>
+                    <!-- <span class="help-block" >Email for login...</span> -->
+                    <span class="input-group-addon">
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label" style="padding-bottom: 5px;">
+                  <div class="input-group">
+                    <%= f.password_field :password, autocomplete: "off", class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px;">Password</label>
+                    <!-- <span class="help-block">Must be at least 6 characters</span> -->
+                    <span class="input-group-addon">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                  </div>
+                </div>
+
+
+                    <div class="row" style="text-align:center">
+                      <%= f.submit 'Login', :class => "btn btn-next", :style => "border-radius: 5px !important; margin-top:10px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; width: 92%"%>
+                    </div>
+                    <div class="row" style="text-align:center">
+                      <%= link_to 'Signup', new_user_registration_path, :class => "btn btn-default btn-sm", :style => "border-radius: 5px !important; margin-top:10px; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; font-size: 10px; text-shadow:none; font-variant:none; text-decoration:none" %>
+
+                    </div>
+                <%= f.hidden_field :role, value: "gymManager" %>
+              <% end %>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- <h2>New Session</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
@@ -23,4 +86,4 @@
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>
+<%= render "users/shared/links" %> -->

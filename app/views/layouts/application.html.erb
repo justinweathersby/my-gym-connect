@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
 
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
@@ -30,13 +30,14 @@
     <%= render 'layouts/navbar' %>
     <div class="container" style="padding-top: 50px;">
       <% flash.each do |name, msg| %>
-            <%= content_tag(:div, msg, class: "alert alert-info") %>
+
+            <%= content_tag(:div,  msg.kind_of?(Array) ? msg.join(', ') : msg, class: "alert alert-info") if msg.length > 0%>
         <% end %>
       <%= yield %>
     </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
     <script>
     window.setTimeout(function () {
          $(".alert-info").slideUp(500, function () {

@@ -22,7 +22,7 @@
     <!-- Plugin CSS -->
 
 
-    <%= stylesheet_link_tag  'landing_page', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag  'landing_page', media: 'all' %>
     <%= stylesheet_link_tag "vendor/device-mockups/device-mockups.min", :media => "all" %>
 
     <!-- Theme CSS -->
@@ -39,9 +39,9 @@
 <body id="page-top">
   <%= render 'layouts/landing_page_navbar' %>
 
- <% flash.each do |name, msg| %>
+ <!-- <% flash.each do |name, msg| %>
     <%= content_tag(:div, msg, class: "alert alert-info") %>
- <% end %>
+ <% end %> -->
  <%= yield %>
 
  <%= javascript_include_tag "landing_page.js" %>

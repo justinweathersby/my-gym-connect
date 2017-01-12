@@ -3,10 +3,10 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-1">
-  </div>
-  <div class="col-sm-3 align-self-center" style="padding-right:0;">
-    <div style="background:#FF5252; min-height: 40vh; width:100%;margin-top:5vh; border-radius: 10px 0 0 10px; padding:15px; color:white;text-align: right;">
+  <!-- <div class="col-sm-1">
+  </div> -->
+  <div class="col-sm-4 align-self-center" style="padding-right:0;">
+    <div style="background:#FF5252; min-height: 40vh; width:100%;margin-top:5vh; border-radius: 10px 0 0 10px !important; padding:15px; color:white;text-align: right;">
       <h2 style="margin-top:0;font-weight: bold; font-size:22px">Welcome to My Gym Connect!</h2>
       <p style="font-size:14px">
         Just a few steps to get you setup...
@@ -18,75 +18,63 @@
       <div style=" width:100%;">
         <div class="row">
             <div class="col-sm-12 form-box">
-              <%= form_for(resource, as: resource_name,  url: registration_path(resource_name), :html => {:class => 'f1'}) do |f| %>
-
+              <%= form_for(resource, as: resource_name,  url: registration_path(resource_name), :html => {:class => 'f1', :style => 'min-height: 50vh'}) do |f| %>
+              <div style="visibility: hidden; height:0;">
+                <%= flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages %>
+              </div>
                 <!-- <h3>Register To Our App</h3>
                 <p>Fill in the form to get instant access</p> -->
-                <div class="f1-steps" style="padding-bottom: 40px;">
-                  <div class="f1-progress">
-                      <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
+                <div class="f1-steps" style="padding-bottom: 20px; margin-top:0">
+                  <!-- <div class="f1-progress">
+                      <div class="f1-progress-line" data-now-value="100" data-number-of-steps="1" style="width: 100%;"></div>
+                  </div> -->
+                  <div class="f1-step active" style="float:none; margin: 0 auto">
+                    <div class="f1-step-icon" style="background: #455A64; border-radius: 50% !important"><i class="fa fa-user"></i></div>
+                    <!-- <p>profile</p> -->
                   </div>
-                  <div class="f1-step active">
-                    <div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                    <p>profile</p>
+                </div>
+                <div class="form-group form-md-line-input  form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.text_field :email, class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Email</label>
+                    <span class="help-block" >Email for login...</span>
+                    <i class="fa fa-envelope-o"></i>
                   </div>
-                  <div class="f1-step">
-                    <div class="f1-step-icon"><i class="fa fa-users"></i></div>
-                    <p>gym</p>
+                </div>
+                <div class="form-group form-md-line-input  form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.text_field :name, class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Name</label>
+                    <span class="help-block">Your name. ex: John Smith</span>
+                    <i class="fa fa-user"></i>
                   </div>
-                    <div class="f1-step">
-                    <div class="f1-step-icon"><i class="fa fa-cc-stripe"></i></div>
-                    <p>checkout</p>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.password_field :password, autocomplete: "off", class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Password</label>
+                    <span class="help-block">Must be at least 6 characters</span>
+                    <i class="fa fa-unlock-alt"></i>
+                  </div>
+                </div>
+                <div class="form-group form-md-line-input  form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Password Confirmation</label>
+                    <!-- <span class="help-block">Must be at least 6 characters</span> -->
+                    <i class="fa fa-lock"></i>
                   </div>
                 </div>
 
-                <fieldset>
-                  <div class="col-sm-12" style="text-align:center">
-                    <div class="form-group">
-                        <%= f.email_field :email, autofocus: true, class: "f1-first-name form-control", placeholder: "Email", style: "margin:0 auto;"%>
+                    <div class="row" style="text-align:center">
+                      <%= f.submit :class => "btn btn-next", :style => "border-radius: 5px !important; margin-top:10px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; width: 92%"%>
+                      <!-- <button type="button" class="btn btn-next" style="border-radius: 5px !important; margin-top:10px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; width: 92%">Submit</button> -->
                     </div>
-                    <div class="form-group">
-                        <%= f.password_field :password, autocomplete: "off", class: "f1-first-name form-control", placeholder: "Password", style: "margin:0 auto;"  %>
-                    </div>
-                    <div class="form-group">
-                        <%= f.password_field :password_confirmation, autocomplete: "off", class: "f1-first-name form-control", placeholder: "Confirm Password", style: "margin:0 auto;"  %>
-                    </div>
-                    <div class="row">
-                      <button type="button" class="btn btn-next" style="border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; ">Continue</button>
-                    </div>
-                  </div>
-                </fieldset>
+                    <div class="row" style="text-align:center">
+                      <%= link_to 'Login', new_user_session_path, :class => "btn btn-default btn-sm", :style => "border-radius: 5px !important; margin-top:10px; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; font-size: 10px; text-shadow:none; font-variant:none; text-decoration:none" %>
+                      <!-- <button type="button" class="btn btn-default btn-sm" style="border-radius: 5px !important; margin-top:10px; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; font-size: 10px; text-shadow:none; font-variant:none; ">Login</button> -->
 
-                <fieldset>
-                  <div class="col-sm-12" style="text-align:center">
-                    <div class="form-group">
-                      <%= f.text_field :gym_name, class: "f1-first-name form controll", placeholder: "Gym Name", style: "margin:0 auto;" %>
                     </div>
-                    <div class="form-group">
-                      <%= f.text_field :gym_location, class: "f1-first-name form controll", placeholder: "Location", style: "margin:0 auto;" %>
-                    </div>
-                    <div class="form-group">
-                      <%= f.text_field :gym_phone, class: "f1-first-name form controll", placeholder: "Phone Number", style: "margin:0 auto;" %>
-                    </div>
-                    <div class="row">
-                      <button type="button" class="btn btn-previous" style="border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; ">Previous</button>
-                      <button type="button" class="btn btn-next" style="border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; ">Continue</button>
-                    </div>
-                  </div>
-                </fieldset>
-
-                    <fieldset>
-                      <div class="col-sm-12" style="text-align:center">
-                        <h4>All Processing is done via Stripe:</h4>
-
-
-                        <div class="row" style="padding-top:40px">
-                          <button type="button" class="btn btn-previous" style="border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; ">Previous</button>
-                          <%= f.submit "Submit", class: "btn btn-submit", style: "border: none; height:100%; border-radius: 5px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none;" %>
-                        </div>
-                      </div>
-                    </fieldset>
-                <!-- <%= f.hidden_field :role, value: params[:user_type] %> -->
                 <%= f.hidden_field :role, value: "gymManager" %>
               <% end %>
             </div>
@@ -98,108 +86,3 @@
     </div>
 </div>
 <script>
-
-function scroll_to_class(element_class, removed_height) {
-	var scroll_to = $(element_class).offset().top - removed_height;
-	if($(window).scrollTop() != scroll_to) {
-		$('html, body').stop().animate({scrollTop: scroll_to}, 0);
-	}
-}
-
-function bar_progress(progress_line_object, direction) {
-	var number_of_steps = progress_line_object.data('number-of-steps');
-	var now_value = progress_line_object.data('now-value');
-	var new_value = 0;
-	if(direction == 'right') {
-		new_value = now_value + ( 100 / number_of_steps );
-	}
-	else if(direction == 'left') {
-		new_value = now_value - ( 100 / number_of_steps );
-	}
-	progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
-}
-
-jQuery(document).ready(function() {
-
-    /*
-        Form
-    */
-    $('.f1 fieldset:first').fadeIn('slow');
-
-    $('.f1 input[type="text"], .f1 input[type="password"], .f1 textarea').on('focus', function() {
-    	$(this).removeClass('input-error');
-    });
-
-    // next step
-    $('.f1 .btn-next').on('click', function() {
-    	var parent_fieldset = $(this).parents('fieldset');
-    	var next_step = true;
-    	// navigation steps / progress steps
-    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-
-    	// fields validation
-    	parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
-    		if( $(this).val() == "" ) {
-    			$(this).addClass('input-error');
-    			next_step = false;
-    		}
-    		else {
-    			$(this).removeClass('input-error');
-    		}
-    	});
-    	// fields validation
-
-    	if( next_step ) {
-    		parent_fieldset.fadeOut(400, function() {
-    			// change icons
-    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
-    			// progress bar
-    			bar_progress(progress_line, 'right');
-    			// show next step
-	    		$(this).next().fadeIn();
-	    		// scroll window to beginning of the form
-    			scroll_to_class( $('.f1'), 150 );
-	    	});
-    	}
-
-    });
-
-    // previous step
-    $('.f1 .btn-previous').on('click', function() {
-    	// navigation steps / progress steps
-    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-
-    	$(this).parents('fieldset').fadeOut(400, function() {
-    		// change icons
-    		current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
-    		// progress bar
-    		bar_progress(progress_line, 'left');
-    		// show previous step
-    		$(this).prev().fadeIn();
-    		// scroll window to beginning of the form
-			scroll_to_class( $('.f1'), 150 );
-    	});
-    });
-
-    // submit
-    $('.f1').on('submit', function(e) {
-
-    	// fields validation
-    	$(this).find('input[type="text"], input[type="password"], textarea').each(function() {
-    		if( $(this).val() == "" ) {
-    			e.preventDefault();
-    			$(this).addClass('input-error');
-    		}
-    		else {
-    			$(this).removeClass('input-error');
-    		}
-    	});
-    	// fields validation
-
-    });
-
-
-});
-</script>
