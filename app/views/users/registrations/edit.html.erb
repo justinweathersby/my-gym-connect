@@ -1,49 +1,144 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, readonly: true %>
+<div class="row" style="padding-top: 30px;">
+  <div class="col-sm-1">
   </div>
+  <div class="col-sm-3 align-self-center" style="padding-right:0;">
+    <div style="background:#FF5252; min-height: 40vh; width:100%;margin-top:5vh; border-radius: 10px 0 0 10px !important; padding:15px; color:white;text-align: right;">
+      <h2 style="margin-top:0;font-weight: bold; font-size:22px">Edit <%= resource_name.to_s.humanize %></h2>
+      <p style="font-size:14px">
+        Just a few steps to get you setup...
+      </p>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
   </div>
+    <div class="col-sm-6" style="padding-left:0">
+      <div style=" width:100%;">
+        <div class="row">
+            <div class="col-sm-12 form-box">
+              <%= form_for(resource, as: resource_name,  url: registration_path(resource_name), :html => {method: :put, :class => 'f1', :style => 'min-height: 50vh'}) do |f| %>
+              <div style="visibility: hidden; height:0;">
+                <%= flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages %>
+              </div>
+                <!-- <h3>Register To Our App</h3>
+                <p>Fill in the form to get instant access</p> -->
+                <div class="f1-steps" style="padding-bottom: 20px; margin-top:0">
+                  <!-- <div class="f1-progress">
+                      <div class="f1-progress-line" data-now-value="100" data-number-of-steps="1" style="width: 100%;"></div>
+                  </div> -->
+                  <div class="f1-step active" style="float:none; margin: 0 auto">
+                    <div class="f1-step-icon" style="background: #455A64; border-radius: 50% !important"><i class="fa fa-user"></i></div>
+                    <!-- <p>profile</p> -->
+                  </div>
+                </div>
+                <div class="form-group form-md-line-input  form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.text_field :email, class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Email</label>
+                    <span class="help-block" >Email for login...</span>
+                    <i class="fa fa-envelope-o"></i>
+                  </div>
+                </div>
+                <div class="form-group form-md-line-input  form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.text_field :name, class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Name</label>
+                    <span class="help-block">Your name. ex: John Smith</span>
+                    <i class="fa fa-user"></i>
+                  </div>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.password_field :password, autocomplete: "off", class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Password</label>
+                    <span class="help-block">Must be at least 6 characters</span>
+                    <i class="fa fa-unlock-alt"></i>
+                  </div>
+                </div>
+                <div class="form-group form-md-line-input  form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Password Confirmation</label>
+                    <!-- <span class="help-block">Must be at least 6 characters</span> -->
+                    <i class="fa fa-lock"></i>
+                  </div>
+                </div>
+                <div class="form-group form-md-line-input  form-md-floating-label" style="padding-bottom: 12px;">
+                  <div class="input-icon right" style="width: 100%">
+                    <%= f.password_field :current_password, autocomplete: "off", class: "form-control", style: "width:100%" %>
+                    <label for="form_control_1" style="font-size:12px; margin-top: -10px;">Current Password</label>
+                    <span class="help-block">Need current password to make changes...</span>
+                    <i class="fa fa-lock"></i>
+                  </div>
+                </div>
 
 
+                    <div class="row" style="text-align:center">
+                      <%= f.submit "Update", :class => "btn btn-next", :style => "border-radius: 5px !important; margin-top:10px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; width: 92%"%>
+                      <!-- <button type="button" class="btn btn-next" style="border-radius: 5px !important; margin-top:10px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; width: 92%">Submit</button> -->
+                    </div>
+                    <div class="row" style="text-align:center">
+                      <%= link_to "Go Back", :back, class: "btn btn-default btn-sm", style: "border-radius: 5px !important; margin-top:10px; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; font-size: 10px; text-shadow:none; font-variant:none; text-decoration:none", data: { confirm: "Your changes will not be saved. Are you sure?" }, method: :get %></p>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
+                      <!-- <%= link_to 'Login', new_user_session_path, :class => "btn btn-default btn-sm", :style => "border-radius: 5px !important; margin-top:10px; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; font-size: 10px; text-shadow:none; font-variant:none; text-decoration:none" %> -->
+                      <!-- <button type="button" class="btn btn-default btn-sm" style="border-radius: 5px !important; margin-top:10px; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; font-size: 10px; text-shadow:none; font-variant:none; ">Login</button> -->
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+                    </div>
+                <%= f.hidden_field :role, value: "gymManager" %>
+              <% end %>
+            </div>
+        </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
+    </div>
+</div>
+    <div class="col-sm-2">
+    </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Update", class: "btn btn-success" %>
-    <%= button_to "Go Back", :back, class: "btn btn-warning", data: { confirm: "Your changes will not be saved. Are you sure?" }, method: :get %></p>
-  </div>
-<% end %>
 
-<hr />
+<!-- # <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+#   <%= devise_error_messages! %>
+#
+#   <div class="field">
+#     <%= f.label :email %><br />
+#     <%= f.email_field :email, readonly: true %>
+#   </div>
+#
+#   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+#     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+#   <% end %>
+#
+#   <div class="field">
+#     <%= f.label :name %><br />
+#     <%= f.text_field :name %>
+#   </div>
+#
+#
+#
+#   <div class="field">
+#     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+#     <%= f.password_field :password, autocomplete: "off" %>
+#     <% if @minimum_password_length %>
+#       <br />
+#       <em><%= @minimum_password_length %> characters minimum</em>
+#     <% end %>
+#   </div>
+#
+#   <div class="field">
+#     <%= f.label :password_confirmation %><br />
+#     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+#   </div>
+#
+#   <div class="field">
+#     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+#     <%= f.password_field :current_password, autocomplete: "off" %>
+#   </div>
+#
+#   <div class="actions">
+#     <%= f.submit "Update", class: "btn btn-success" %>
+#     <%= button_to "Go Back", :back, class: "btn btn-warning", data: { confirm: "Your changes will not be saved. Are you sure?" }, method: :get %></p>
+#   </div>
+# <% end %> -->
+
+<!-- <hr />
 <h3>Cancel my account</h3>
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "This will delete you from our system FOREVER...Are you sure?" }, method: :delete %></p>
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "This will delete you from our system FOREVER...Are you sure?" }, method: :delete %></p> -->
