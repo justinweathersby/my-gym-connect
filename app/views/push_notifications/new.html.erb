@@ -58,10 +58,10 @@
               <% end %>
             </tbody>
         </table>
-        <div class="row">
+        <div class="row" style="text-align:center">
           <%= f.hidden_field :user_id, value: current_user.id %>
           <%= f.hidden_field :gym_id, value: @gym.id %>
-          <%= f.submit "Create", :type => "submit", :class=>"btn btn-primary", :style=>"width:100%" %>
+          <%= f.submit "Create", :type => "submit", :class=>"btn btn-primary", :style=>"border-radius: 5px !important; margin-top:10px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; font-variant:none; width: 92%; margin-top:30px" %>
         </div>
         <% end %>
       </div>
