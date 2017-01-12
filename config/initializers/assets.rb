@@ -16,15 +16,22 @@ Rails.application.config.assets.precompile += [ 'landing_page.scss',
                                                 'vendor/bootstrap-switch/css/bootstrap-switch.min.css',
                                                 'vendor/bootstrap-switch/js/bootstrap-switch.min.js',
                                                 'vendor/bootstrap-fileinput/bootstrap-fileinput.css',
+                                                'vendor/metronic/css/bootstrap/datatables.bootstrap.css',
                                                 'vendor/metronic/css/components.min.css',
                                                 'vendor/metronic/css/plugins.min.css',
                                                 'vendor/metronic/css/layout.min.css',
                                                 'vendor/metronic/css/themes/blue.min.css',
+                                                'vendor/metronic/css/datatables.min.css',
                                                 'vendor/metronic/js/app.min.js',
                                                 'vendor/metronic/js/demo.min.js',
                                                 'vendor/metronic/js/layout.min.js',
                                                 'vendor/metronic/js/quick-nav.min.js',
                                                 'vendor/metronic/js/quick-sidebar.min.js',
                                                 'vendor/metronic/js/counterup/jquery.counterup.min.js',
-                                                'vendor/metronic/js/bootstrap-fileinput.bootstrap-fileinput.js'
+                                                'vendor/bootstrap-fileinput/bootstrap-fileinput.js',
+                                                'vendor/metronic/js/plugins/datatables.min.js',
+                                                'vendor/metronic/js/plugins/bootstrap/datatables.bootstrap.js',
+                                                'vendor/metronic/js/scripts/datatable.js',
+                                                'vendor/metronic/js/scripts/table-datatables-managed.js'
+
                                               ]

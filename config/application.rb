@@ -28,9 +28,9 @@ module MyGymConnect
     end
 
     Plaid.config do |p|
-      p.client_id = '57cb27eccfbf49f67b01fd51'
-      p.secret = '64c18b997e308b9ce540c04cd9f5db'
-      p.env = :tartan  # or :production
+      p.client_id = ENV['PLAID_CLIENT_ID']
+      p.secret = ENV['PLAID_SECRET']
+      p.env = :tartan # or :production
     end
 
     # Do not swallow errors in after_commit/after_rollback callbacks.

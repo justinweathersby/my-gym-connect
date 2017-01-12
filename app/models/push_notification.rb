@@ -3,7 +3,7 @@ class PushNotification < ActiveRecord::Base
   after_create :upload_notification_to_ionic
 
   validates :message, presence: true
-  validates :tokens, presence: true
+  # validates :tokens, presence: true
   validates :gym_id, presence: true
   validates :user_id, presence: true
 
@@ -15,19 +15,19 @@ class PushNotification < ActiveRecord::Base
 
 private
   def upload_notification_to_ionic
+    puts "UPLOADING NOTIFICATION"
     puts self.tokens.to_json
-
 
     params = {
       "tokens" => self.tokens,
-      "profile" => "justin_production",
+      "profile" => "production",
       "notification":{
         "message": self.message,
         "android":{
-          "title": "Baker Motor Company"
+          "title": "My Gym Connect"
         },
          "ios": {
-              "title": "Baker Motor Company"
+              "title": "My Gym Connect"
             }
       }
     }

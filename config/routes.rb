@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   end
 
   resources :gyms do
+    resources :push_notifications
     post :subscription
   end
 

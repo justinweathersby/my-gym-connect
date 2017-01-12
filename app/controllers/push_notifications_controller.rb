@@ -4,11 +4,7 @@ class PushNotificationsController < ApplicationController
   before_action :set_push_notification, only: [:destroy]
 
   def index
-    # @push_notifications = PushNotification.all
     @push_notifications= PushNotification.all.paginate(:page => params[:page])
-    # respond_to do |format|
-    #   format.html { redirect_to push_notifications_path }
-    # end
   end
 
   def show
@@ -16,6 +12,8 @@ class PushNotificationsController < ApplicationController
 
   def new
     @push_notification = PushNotification.new
+    @gym = Gym.find(params[:gym_id])
+    @gym_users = @gym.users
     @customers = User.where.not('device_token' => nil)
   end
 
@@ -24,14 +22,19 @@ class PushNotificationsController < ApplicationController
 
   def create
     @push_notification = PushNotification.new(push_notification_params)
+    @gym = Gym.find(@push_notification.gym_id)
+    @gym_users = @gym.users
     @push_notification.user_id = current_user.id
+    @push_notification.sent_to = params[:tokens]
+    @push_notification.sent_to.each do |t|
+      device_token = User.find(t).device_token
+      @push_notification.tokens.push(device_token) unless device_token.nil?
+    end
 
-    respond_to do |format|
-      if @push_notification.save
-        format.html { redirect_to push_notifications_path, notice: 'Push Notification was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @push_notification.save
+      redirect_to url_for([current_user, @gym]), notice: 'Push Notification was successfully created.'
+    else
+      render :action => 'new',:gym_id => @gym.id
     end
   end
 
@@ -43,8 +46,6 @@ class PushNotificationsController < ApplicationController
   end
 
   private
-
-
     # Use callbacks to share common setup or constraints between actions.
     def set_push_notification
       @push_notification = PushNotification.find(params[:id])
