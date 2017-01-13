@@ -21,6 +21,7 @@
                           <th style="color: #455A64"> # </th>
                           <th style="color: #455A64"> Notification </th>
                           <th style=" color: #455A64"> Sent By </th>
+                          <th style=" color: #455A64"> Sent At </th>
                           <th style="text-align:center; color: #455A64"> Actions </th>
                       </tr>
                   </thead>
@@ -30,6 +31,7 @@
                           <td><%= index+1 %></td>
                           <td><%= notification.message %></td>
                           <td><%= User.find(notification.user_id).name %></td>
+                          <td><%= notification.created_at.strftime("%m/%d/%Y at %I:%M%p") %></td>
                           <td>
                             <div class="actions" style="text-align:center">
                               <div class="btn-group">
@@ -40,7 +42,8 @@
 
                                     <!-- <li class="divider"> </li> -->
                                     <li>
-                                        <a href="javascript:;">Delete</a>
+                                      <%= link_to 'Delete', notification, method: :delete, data: {confirm: "Are you sure?"} %>
+
                                     </li>
                                   </ul>
                               </div>

@@ -39,9 +39,10 @@ class PushNotificationsController < ApplicationController
   end
 
   def destroy
+    @gym = Gym.find(@push_notification.gym_id)
     @push_notification.destroy
     respond_to do |format|
-      format.html { redirect_to push_notifications_path, notice: 'Push Notification was successfully destroyed.' }
+      format.html { redirect_to url_for([current_user, @gym]), notice: 'Push Notification was successfully destroyed.' }
     end
   end
 
