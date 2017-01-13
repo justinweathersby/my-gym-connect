@@ -1,43 +1,68 @@
-<p>
-  <strong>User Email:</strong>
-  <%= @user.email %>
-</p>
-<p>
-  <%= @user.created_at.strftime("Member Since: %m/%d/%Y") %>
-</p>
-<p>
-  <strong>Gym Assosiated To:</strong>
-  <%= @user.gym.name if @user.gym_id.present? %>
-</p>
-<% if @user.image?%>
-  <br />
-  <%= image_tag @user.image.url(:thumb) %>
-  <br />
-<% else %>
-  <p>
-    <strong>NO PHOTO UPLOADED</strong>
-  </p>
-<% end %>
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-<p>
-  <strong>Gender:</strong>
-  <%= @user.gender %>
-</p>
-<p>
-  <strong>Hours in Gym Array:</strong><br />
-  <% @user.hours_in_gym.each do |h| %>
-    <%= calc_datetime_from_hours(h.to_f) %>
-    <br />
-  <% end%>
-</p>
-<p>
-  <strong>Workout Level:</strong>
-  <%= @user.workout_level%>
-</p>
+<div class="col-xs-12 col-lg-8 col-lg-offset-2" style=" margin-top: 3vh; padding:15px;">
+  <div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption font-red-sunglo">
+          <span class="caption-subject bold uppercase" style="font-size:24px"><%= @user.name %></span><br />
+          <small style="font-size:12px; color:gray"><%= @user.created_at.strftime("Member Since: %m/%d/%Y") %></small>
+          <!-- <small style="color:gray"><%= @user.name %></small> -->
+        </div>
+        <div class="actions">
+          <%= link_to :back, :class => "btn btn-circle btn-icon-only red" do %>
+            <i class="icon-trash"></i>
+          <% end %>
+          <% if signed_in? and current_user == @user%>
+            <%= link_to edit_user_registration_path, :class => "btn btn-circle btn-icon-only blue" do %>
+                <i class="icon-cloud-upload"></i>
+            <% end %>
+          <% end %>
+          <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title=""> </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+      <div class="row" style="margin-bottom:15px">
+        <div class="col-xs-12 col-sm-4">
+          <%= image_tag @user.image.url(:medium), style: "width:100%; height:200px; object-fit:cover;" %>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <%= image_tag @user.second_image.url(:medium), style: "width:100%; height:200px; object-fit:cover;" %>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <%= image_tag @user.third_image.url(:medium), style: "width:100%; height:200px; object-fit:cover;" %>
+        </div>
+      </div>
+      <div class="form-group form-md-line-input form-md-floating-label" style="margin-bottom:15px">
+          <textarea class="form-control" rows="3" readonly="" placeholder="<%= @user.description %>"></textarea>
+          <!-- <input type="text" class="form-control" readonly="" value="<%= @user.description %>" id="form_control_1"> -->
+          <label for="form_control_1">Description</label>
+      </div>
+      <div class="form-group form-md-line-input form-md-floating-label" style="margin-bottom:15px">
+          <input type="text" class="form-control" readonly="" value="<%= @user.email %>" id="form_control_1">
+          <label for="form_control_1">Email</label>
+      </div>
+      <div class="form-group form-md-line-input form-md-floating-label" style="margin-bottom:15px">
+          <input type="text" class="form-control" readonly="" value="<%= @user.name %>" id="form_control_1">
+          <label for="form_control_1">Name</label>
+      </div>
+      <div class="form-group form-md-line-input form-md-floating-label" style="margin-bottom:15px">
+          <input type="text" class="form-control" readonly="" value="<%= @user.gender %>" id="form_control_1">
+          <label for="form_control_1">Gender</label>
+      </div>
+      <div class="form-group form-md-line-input form-md-floating-label" style="margin-bottom:15px">
+          <input type="text" class="form-control" readonly="" value="<%= @user.gender_match %>" id="form_control_1">
+          <label for="form_control_1">Gender Match</label>
+      </div>
+      <div class="form-group form-md-line-input form-md-floating-label" style="margin-bottom:15px">
+          <input type="text" class="form-control" readonly="" value="<%= @user.workout_level %>" id="form_control_1">
+          <label for="form_control_1">Workout Level</label>
+      </div>
+      <div class="form-group form-md-line-input form-md-floating-label" style="margin-bottom:15px">
+          <input type="text" class="form-control" readonly="" value="<%= @user.workout_time %>" id="form_control_1">
+          <label for="form_control_1">Workout Time</label>
+      </div>
+      <div class="row text-center">
+        <%= link_to "Go Back", :back, :class => "btn btn-next", :style => "color:white; border-radius: 5px !important; margin-top:10px; background: #FF5252; font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif'; text-shadow:none; text-decoration:none; width: 92%"%>
 
-<% if signed_in? and current_user == @user%>
-  <%= link_to "Edit Profile", edit_user_registration_path %>
-<% end %>
+      </div>
+    </div>
+  </div>                    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
