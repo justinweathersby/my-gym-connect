@@ -13,7 +13,9 @@ class Api::V1::UsersController < Api::ApiController
         @user.save
         render json: {user: @user}, status: 200
       else
-        render json: {errors: "Gym Not Found"}, status: 422
+        # render json: {errors: "Gym Not Found"}, status: 422
+
+        render json: {errors: {"Gym" => ["Not Found"]}}, status: 422
       end
     else
       render json: { errors: @user.errors}, status: :bad_request
