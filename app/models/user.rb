@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :gyms, dependent: :destroy
+  has_many :conversations, dependent: :destroy
   belongs_to :gym
   # serialize :hours_in_gym, Array
 
