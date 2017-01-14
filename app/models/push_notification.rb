@@ -24,10 +24,12 @@ private
       "notification":{
         "message": self.message,
         "android":{
-          "title": "My Gym Connect"
+          "title": "My Gym Connect",
+          "badge": "1"
         },
          "ios": {
-              "title": "My Gym Connect"
+              "title": "My Gym Connect",
+              "badge": "1"
             }
       }
     }
