@@ -20,7 +20,7 @@ private
 
     params = {
       "tokens" => self.tokens,
-      "profile" => "production",
+      "profile" => "dev",
       "notification":{
         "payload": {
           "user_message": "0"

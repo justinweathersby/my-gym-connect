@@ -21,10 +21,13 @@ class Message < ActiveRecord::Base
        token = User.find(conversation.sender_id).device_token
      end
 
+     puts "::::TOKEN: ", token
+     puts "::::CONVERSATION: ", conversation
+
      unless token.nil?
        params = {
          "tokens" => token,
-         "profile" => "production",
+         "profile" => "dev",
          "notification":{
            "message": self.body,
            "payload": {
