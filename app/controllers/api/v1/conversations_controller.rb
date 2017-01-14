@@ -3,6 +3,7 @@ class Api::V1::ConversationsController < Api::ApiController
  before_action :authenticate_with_token!
 
 def index
+ puts "CURENT USER ID::::::", current_user.id
  @conversations = Conversation.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id).order(created_at: :desc)
 end
 
