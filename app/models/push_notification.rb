@@ -22,6 +22,9 @@ private
       "tokens" => self.tokens,
       "profile" => "production",
       "notification":{
+        "payload": {
+          "user_message": "0"
+        },
         "message": self.message,
         "android":{
           "title": "My Gym Connect",
