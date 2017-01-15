@@ -14,22 +14,26 @@ class Message < ActiveRecord::Base
    def upload_notification_to_ionic
      puts "UPLOADING USER MESSAGE NOTIFICATION"
      token = nil;
+     user_id = nil;
+     username = "";
      conversation = self.conversation
+
      if self.user_id == conversation.sender_id
-       token = User.find(conversation.recipient_id).device_token
+       user_id = conversation.recipient_id
      else
-       token = User.find(conversation.sender_id).device_token
+       user_id = conversation.sender_id
      end
 
-     puts "::::TOKEN: ", token
-     puts "::::CONVERSATION: ", conversation
+     user = User.find(user_id)
+     token = user.device_token
+     message_text = user.name + ": " + self.body
 
      unless token.nil?
        params = {
          "tokens" => token,
          "profile" => "dev",
          "notification":{
-           "message": self.body,
+           "message": message_text,
            "payload": {
              "user_message": "1",
              "conversation_id": conversation.id

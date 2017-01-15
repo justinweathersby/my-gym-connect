@@ -8,11 +8,10 @@ class Api::V1::MessagesController < Api::ApiController
   end
 
   def create
-    puts "inside messages create:"
-    puts @conversation.inspect
     @message = @conversation.messages.new(message_params)
     @message.user_id = current_user.id
     if  @message.save
+      @conversation.touch
       render :new, status: :ok, formats: [:json]
     else
       render json: @message.errors, status: :bad_request

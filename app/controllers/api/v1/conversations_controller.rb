@@ -3,11 +3,10 @@ class Api::V1::ConversationsController < Api::ApiController
  before_action :authenticate_with_token!
 
 def index
- @conversations = Conversation.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id).order(created_at: :desc)
+ @conversations = Conversation.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id).order(updated_at: :desc)
 end
 
 def create
-  p "Inside create"
   if Conversation.between(current_user.id ,params[:recipient_id]).present?
      @conversation = Conversation.between(current_user.id, params[:recipient_id])
   else
