@@ -24,9 +24,9 @@ class Message < ActiveRecord::Base
        user_id = conversation.sender_id
      end
 
-     user = User.find(user_id)
-     token = user.device_token
-     message_text = user.name + ": " + self.body
+     username = User.find(self.user_id).name
+     token = User.find(user_id).device_token
+     message_text = username + ": " + self.body
 
      unless token.nil?
        params = {
