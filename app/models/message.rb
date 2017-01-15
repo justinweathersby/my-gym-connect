@@ -31,7 +31,7 @@ class Message < ActiveRecord::Base
      unless token.nil?
        params = {
          "tokens" => token,
-         "profile" => "dev",
+         "profile" => ENV['IONIC_PUSH_ENV'],
          "notification":{
            "message": message_text,
            "payload": {

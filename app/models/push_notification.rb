@@ -20,7 +20,7 @@ private
 
     params = {
       "tokens" => self.tokens,
-      "profile" => "dev",
+      "profile" => ENV['IONIC_PUSH_ENV'],
       "notification":{
         "payload": {
           "user_message": "0"
