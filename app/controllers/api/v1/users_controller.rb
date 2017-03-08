@@ -53,6 +53,10 @@ class Api::V1::UsersController < Api::ApiController
   end
 
   def update_params
-    params.permit(:id, :name, :password, :workout_level,  :image, :second_image, :third_image, :gender, :gender_match, :workout_time, :description, :device_token, :device_type, hours_in_gym: [])
+    params.permit(:id, :name, :password, :workout_level,
+                  :image, :second_image, :third_image, :gender, :gender_match, :workout_time, :description,
+                  :device_token, :device_type,
+                  :days_per_week, :cardio_per_week,:workout_preference, :attend_classes, 
+                  hours_in_gym: [])
   end
 end
