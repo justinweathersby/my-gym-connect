@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   after_create :generate_auth_token
 
   ROLES = %i[admin gymManager banned]
-  WORKOUTLEVELS = %i[beginner intermediate expert]
+  WORKOUTLEVELS = %i[beginner intermediate advanced]
   GENDERS = %i[male female]
   WORKOUTTIMES = %i[morning afternoon night all]
   GENDERMATCH = %i[male female both]
