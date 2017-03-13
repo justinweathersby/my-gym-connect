@@ -8,8 +8,9 @@ class Api::V1::UsersController < Api::ApiController
       gym_access_code = params[:gym_code]
       gym = Gym.find_by_access_code(gym_access_code)
       if gym.present?
-        puts "Inside gym present true...user:", @user.inspect
         @user.gym_id = gym.id
+        @user.generate_auth_token
+        puts "Inside gym present true...user:", @user.inspect
         @user.save
         render json: {user: @user}, status: 200
       else
@@ -56,7 +57,7 @@ class Api::V1::UsersController < Api::ApiController
     params.permit(:id, :name, :password, :workout_level,
                   :image, :second_image, :third_image, :gender, :gender_match, :workout_time, :description,
                   :device_token, :device_type,
-                  :days_per_week, :cardio_per_week,:workout_preference, :attend_classes, 
+                  :days_per_week, :cardio_per_week,:workout_preference, :attend_classes,
                   hours_in_gym: [])
   end
 end
