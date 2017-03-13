@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   belongs_to :gym
   # serialize :hours_in_gym, Array
 
-  after_create :generate_auth_token
+  before_create :generate_auth_token
 
   ROLES = %i[admin gymManager banned]
   WORKOUTLEVELS = %i[beginner intermediate advanced]
