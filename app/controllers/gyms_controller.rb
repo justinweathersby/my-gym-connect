@@ -11,14 +11,15 @@ class GymsController < InheritedResources::Base
 
   def index
     @gyms = current_user.gyms
-    @gym_push_notifications_count = 0
     @gym_users_count = 0
     @monthly_popularity = 0
+    @conversation_count = 0
 
     @gyms.each do |g|
-      @gym_users_count += g.users.count
+      @gym_users = g.users
+      @gym_users_count += @gym_users.count
+      @conversation_count += g.conversation_count
       @monthly_popularity += g.users.where('created_at > ?', 30.days.ago).count
-      @gym_push_notifications_count += g.push_notifications.count
     end
     if @gym_users_count > 0
       @monthly_popularity = ((@monthly_popularity.to_f / @gym_users_count) * 100).round()

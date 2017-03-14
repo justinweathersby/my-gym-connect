@@ -32,9 +32,9 @@
               </div>
               <div class="details">
                   <div class="number">
-                      <span data-counter="counterup" data-value="549"><%= @gym_push_notifications_count %></span>
+                      <span data-counter="counterup" data-value="549"><%= @conversation_count %></span>
                   </div>
-                  <div class="desc"> Push Notifications </div>
+                  <div class="desc"> Matches </div>
               </div>
           </a>
       </div>
@@ -74,6 +74,7 @@
                           <th style="color: #455A64"> # </th>
                           <th style="color: #455A64"> Gym Name </th>
                           <th style="color: #455A64"> Access Code </th>
+                          <th style="color: #455A64"> Matches </th>
                           <th style="text-align:center; color: #455A64"> Status </th>
                           <th style="text-align:center; color: #455A64"> Actions </th>
                       </tr>
@@ -84,6 +85,7 @@
                           <td><%= index+1 %></td>
                           <td><%= gym.name %></td>
                           <td><%= gym.access_code %></td>
+                          <td><%= gym.conversation_count %></td>
                           <td style="text-align:center">
                               <span class="label label-sm <%= gym.active ? 'label-success' : 'label-warning' %>">
                                 <%= gym.active ? ' Active ' : 'Pending'%>

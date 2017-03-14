@@ -26,4 +26,9 @@ class Gym < ActiveRecord::Base
       break self.access_code unless Gym.where(access_code: self.access_code).first
     end
   end
+
+  def conversation_count
+    # Conversation.all.where(recipient_id: [self.users.ids]).count
+    Conversation.all.where(recipient_id: [self.users.ids]).count
+  end
 end
