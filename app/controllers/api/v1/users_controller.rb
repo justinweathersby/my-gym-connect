@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::ApiController
       gym = Gym.find_by_access_code(gym_access_code)
       if gym.present?
         @user.gym_id = gym.id
-        @user.generate_auth_token
+        # @user.generate_auth_token
         puts "Inside gym present true...user:", @user.inspect
         @user.save
         render json: {user: @user}, status: 200
