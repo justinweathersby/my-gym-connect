@@ -28,11 +28,13 @@ private
         "message": self.message,
         "android":{
           "title": "My Gym Connect",
-          "badge": "1"
+          "badge": "1",
+          "sound": "true"
         },
          "ios": {
               "title": "My Gym Connect",
-              "badge": "1"
+              "badge": "1",
+              "sound": "true"
             }
       }
     }
