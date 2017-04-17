@@ -246,11 +246,7 @@ header .device-container .screen img {
     margin: 100px auto 0;
   }
 }
-@media (min-width: 992px) {
-  header .header-content .header-content-inner h1 {
-    font-size: 50px;
-  }
-}
+
 section {
   padding: 100px 0;
 }
@@ -336,7 +332,6 @@ section.cta {
   -o-background-size: cover;
   background-position: center;
   background-image: url('/assets/bg-cta.jpg');
-  padding: 250px 0;
 }
 section.cta .cta-content {
   position: relative;
@@ -357,7 +352,7 @@ section.cta .cta-content h2 {
 section.cta .overlay {
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   position: absolute;
   top: 0;
   left: 0;
