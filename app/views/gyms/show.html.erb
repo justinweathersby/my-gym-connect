@@ -147,8 +147,7 @@ var plaidHandler = Plaid.create({
       // TODO find gym_id before now
     $.post('<%= Rails.application.routes.url_helpers.gyms_path %>/' + '<%= @gym.id %>' + "/subscription", params)
       .done( function(data, status, xhr) {
-        // console.log("SUCCESSFUL CREATION OF SUBSCRIPTION");
-        // alert("alert successful plaid stripe");
+        hideLoadingShowInput();
       })
       .fail( function(xhr, status, err) {
         console.log("FAILED SUBSCRIPTION");
@@ -177,9 +176,9 @@ var stripeHandler = StripeCheckout.configure({
 
   closed: function() {
     console.log("CLOSED STRIPE HANDLER")
-    hideLoadingShowInput();
           if (!token_triggered) {
               // close button click behavior goes here
+              hideLoadingShowInput();
           } else {
               // payment completion behavior goes here
           }
@@ -194,6 +193,7 @@ var stripeHandler = StripeCheckout.configure({
 
     $.post('<%= Rails.application.routes.url_helpers.gyms_path %>/' + '<%= @gym.id %>' + "/subscription", params)
       .done( function(data, status, xhr) {
+        hideLoadingShowInput();
       })
       .fail( function(xhr, status, err) {
         console.log("FAILED SUBSCRIPTION");
