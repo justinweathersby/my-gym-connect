@@ -107,3 +107,32 @@
  .f1-buttons { text-align: right; }
 
  .f1 .input-error { border-color: #FF5252; }
+
+ .payment-method-btn {
+   text-decoration: none !important;
+   width:40%;
+   margin: 0;
+   padding: 0;
+   border-radius: 5px !important;
+
+   i{
+     padding-bottom: 10px;
+     padding-top: 10px;
+   }
+
+   .text{
+     font-family: Lato;
+     margin:0;
+     font-weight: 500;
+text-shadow: 0 0 1px black;
+color: white;
+font-size: 15px;
+font-variant: small-caps;
+letter-spacing: 1px;
+   }
+
+ }
+
+ a:hover{
+   background-color: rgba(0,0,0,.2);
+ }

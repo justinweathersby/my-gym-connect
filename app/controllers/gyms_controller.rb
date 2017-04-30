@@ -1,3 +1,5 @@
+require 'plaid'
+
 class GymsController < InheritedResources::Base
   load_and_authorize_resource
   before_action :find_user, except: [:show, :subscription]
@@ -53,11 +55,23 @@ class GymsController < InheritedResources::Base
   def subscription
     @gym = Gym.find(params[:gym_id])
     # @amount = params[:centAmount].try(:to_i)
-    @public_token  = params[:public_token]
-    @account_id = params[:account_id]
+    public_token  = params[:public_token]
+    account_id = params[:account_id]
+    plan_id = params[:plan_id]
 
-    user = Plaid::User.exchange_token(@public_token, @account_id)
-    bank_account_token = user.stripe_bank_account_token
+    client = Plaid::Client.new(env: :sandbox,
+                             client_id: ENV['PLAID_CLIENT_ID'],
+                             secret: ENV['PLAID_SECRET'],
+                             public_key: ENV['PLAID_PUBLIC_KEY'])
+
+    exchange_token_response = client.item.public_token.exchange(public_token)
+    access_token = exchange_token_response['access_token']
+
+    stripe_response = client.processor.stripe.bank_account_token.create(access_token, account_id)
+    bank_account_token = stripe_response['stripe_bank_account_token']
+
+    # user = Plaid::User.exchange_token(@public_token, @account_id)
+    # bank_account_token = user.stripe_bank_account_token
 
     if current_user.stripeid == nil
       customer = Stripe::Customer.create(
@@ -70,7 +84,9 @@ class GymsController < InheritedResources::Base
       customer.source = bank_account_token
       customer.save
     end
-    stripe_subscription = customer.subscriptions.create(:plan => 1, :metadata => {:gym => @gym.name})
+
+    stripe_subscription = customer.subscriptions.create(:plan => plan_id, :metadata => {:gym => @gym.name})
+
     puts "STRIPE SUB: ", stripe_subscription.to_json
     @gym.active = true
     @gym.subscription_id = stripe_subscription.id
@@ -96,7 +112,7 @@ class GymsController < InheritedResources::Base
   private
 
     def gym_params
-      params.require(:gym).permit(:name, :image, :remove_image, :contact_email, :location, :phone, :hours_of_operation, :active, :subscription_id)
+      params.require(:gym).permit(:name, :image, :remove_image, :contact_email, :location, :phone, :hours_of_operation, :active, :subscription_id, :plan_id)
     end
 
     def find_user

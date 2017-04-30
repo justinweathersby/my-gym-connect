@@ -65,25 +65,75 @@
   </div>
 
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background:#FF5252; color: white;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Activate Gym</h4>
+      </div>
+
+      <div class="modal-body">
+        <h4 class="text-center">Choose a Plan</h4>
+        <div class="mt-radio-list" style="margin: 0 auto; width: 60%;">
+          <label class="mt-radio mt-radio-outline" style="font-weight: 300; font-size: 16px;"> Yearly Subscription <strong>($150)</strong>
+              <input value="2" name="subscriptionType" type="radio" checked="checked">
+              <span></span>
+          </label>
+          <label class="mt-radio mt-radio-outline" style="font-weight: 300; font-size: 16px;"> Monthly Subscription <strong>($15)</strong>
+              <input value="1" name="subscriptionType" type="radio">
+              <span></span>
+          </label>
+      </div>
+      <hr />
+      <h4 class="text-center">Choose Method of Payment</h4>
+      <div style="text-align:center">
+        <a class="payment-method-btn icon-btn btn-blue" href="javascript:;">
+            <i class="fa fa-credit-card-alt fa-2x">
+                <i></i>
+            </i>
+            <div class="text"> Credit Card </div>
+        </a>
+        <a id="plaidButton" class="payment-method-btn icon-btn btn-blue" href="javascript:;">
+            <i class="fa fa-university fa-2x">
+                <i></i>
+            </i>
+            <div class="text"> ACH Transfer </div>
+        </a>
+      </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <%= render "gyms/partials/gym_push_notifications_table" %>
 
 <%= render "gyms/partials/gym_users_table" %>
 
-<script src="https://cdn.plaid.com/link/stable/link-initialize.js"></script>
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 <script>
 // ---------Plaid Support-----------
 var linkHandler = Plaid.create({
-  env: 'tartan',
+  // env: 'tartan',
   clientName: 'My Gym Connect',
-  key: '7201f0759c970f392be584a23d38e4',
-  product: 'auth',
+  // key: '7201f0759c970f392be584a23d38e4',
+  env: "<%= ENV['PLAID_ENV']%>",
+  key: "<%= ENV['PLAID_PUBLIC_KEY']%>",
+  product: ['auth'],
+  apiVersion: 'v2',
   selectAccount: true,
   onSuccess: function(public_token, metadata) {
     // Send the public_token and account ID to your app server.
-
     var params = {
         public_token: public_token,
         account_id: metadata.account_id,
+        plan_id: $('input:radio[name="subscriptionType"]:checked').val()
         // centAmount: 4000
 
       };
@@ -120,6 +170,10 @@ var linkHandler = Plaid.create({
 
 // Trigger the Link UI
 document.getElementById('linkButton').onclick = function() {
+   $("#myModal").modal("show");
+};
+
+document.getElementById('plaidButton').onclick = function() {
   linkHandler.open();
 };
 
