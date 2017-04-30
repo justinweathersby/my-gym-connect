@@ -54,7 +54,6 @@ class GymsController < InheritedResources::Base
 
   def subscription
     @gym = Gym.find(params[:gym_id])
-    # @amount = params[:centAmount].try(:to_i)
     public_token  = params[:public_token]
     account_id = params[:account_id]
     plan_id = params[:plan_id]
@@ -64,14 +63,15 @@ class GymsController < InheritedResources::Base
                              secret: ENV['PLAID_SECRET'],
                              public_key: ENV['PLAID_PUBLIC_KEY'])
 
-    exchange_token_response = client.item.public_token.exchange(public_token)
-    access_token = exchange_token_response['access_token']
+    if account_id.present?
+      exchange_token_response = client.item.public_token.exchange(public_token)
+      access_token = exchange_token_response['access_token']
 
-    stripe_response = client.processor.stripe.bank_account_token.create(access_token, account_id)
-    bank_account_token = stripe_response['stripe_bank_account_token']
-
-    # user = Plaid::User.exchange_token(@public_token, @account_id)
-    # bank_account_token = user.stripe_bank_account_token
+      stripe_response = client.processor.stripe.bank_account_token.create(access_token, account_id)
+      bank_account_token = stripe_response['stripe_bank_account_token']
+    else
+      bank_account_token = public_token
+    end
 
     if current_user.stripeid == nil
       customer = Stripe::Customer.create(
@@ -87,11 +87,13 @@ class GymsController < InheritedResources::Base
 
     stripe_subscription = customer.subscriptions.create(:plan => plan_id, :metadata => {:gym => @gym.name})
 
-    puts "STRIPE SUB: ", stripe_subscription.to_json
     @gym.active = true
     @gym.subscription_id = stripe_subscription.id
     @gym.save
-    redirect_to user_gyms_path(current_user)
+
+    flash[:notice] = @gym.name + ' is now active! Thank you for your subscription'
+    flash.keep(:notice)
+    render js: "window.location = '#{user_gyms_url(current_user)}'"
 
   rescue Stripe::CardError => e
     Rails.logger.error("Stripe::CardError: #{e.message}")
@@ -104,10 +106,8 @@ class GymsController < InheritedResources::Base
     render json: {error: e.message}.to_json, status: 400
   end
 
-
   # def edit
   # end
-
 
   private
 
