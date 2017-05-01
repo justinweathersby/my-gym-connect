@@ -144,15 +144,7 @@ var plaidHandler = Plaid.create({
         plan_id: $('input:radio[name="subscriptionType"]:checked').val()
       };
 
-      // TODO find gym_id before now
-    $.post('<%= Rails.application.routes.url_helpers.gyms_path %>/' + '<%= @gym.id %>' + "/subscription", params)
-      .done( function(data, status, xhr) {
-        hideLoadingShowInput();
-      })
-      .fail( function(xhr, status, err) {
-        console.log("FAILED SUBSCRIPTION");
-        alert("Error: We where unable to instantiate your subscription. Please try again or contact support for assistance. Sorry for the inconvience.");
-      });
+    postSubscription(params);
   },
   onExit: function(err, metadata) {
       // The user exited the Link flow.
@@ -191,14 +183,7 @@ var stripeHandler = StripeCheckout.configure({
         plan_id: $('input:radio[name="subscriptionType"]:checked').val()
       };
 
-    $.post('<%= Rails.application.routes.url_helpers.gyms_path %>/' + '<%= @gym.id %>' + "/subscription", params)
-      .done( function(data, status, xhr) {
-        hideLoadingShowInput();
-      })
-      .fail( function(xhr, status, err) {
-        console.log("FAILED SUBSCRIPTION");
-        alert("Error: We where unable to instantiate your subscription. Please try again or contact support for assistance. Sorry for the inconvience.");
-      });
+   postSubscription(params);
   }
 });
 
@@ -225,6 +210,17 @@ function hideInputShowLoading(){
 function hideLoadingShowInput(){
   document.getElementById("activateGymModalInput").style.display = "block";
   document.getElementById("activateGymModalLoading").style.display = "none";
+};
+
+function postSubscription(params){
+  $.post('<%= Rails.application.routes.url_helpers.gyms_path %>/' + '<%= @gym.id %>' + "/subscription", params)
+    .done( function(data, status, xhr) {
+      hideLoadingShowInput();
+    })
+    .fail( function(xhr, status, err) {
+      console.log("FAILED SUBSCRIPTION");
+      alert("Error: We where unable to instantiate your subscription. Please try again or contact support for assistance. Sorry for the inconvience.");
+    });
 };
 
 </script>

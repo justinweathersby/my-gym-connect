@@ -85,6 +85,14 @@ class GymsController < InheritedResources::Base
       customer.save
     end
 
+    # -- Add an initial charge for first time signup
+    Stripe::InvoiceItem.create(
+        :customer => customer,
+        :amount => ENV['GYM_SETUP_FEE'],
+        :currency => "usd",
+        :description => "One-time Gym setup fee for " + @gym.name
+    )
+
     stripe_subscription = customer.subscriptions.create(:plan => plan_id, :metadata => {:gym => @gym.name})
 
     @gym.active = true

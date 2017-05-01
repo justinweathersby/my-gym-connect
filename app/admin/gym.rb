@@ -32,6 +32,26 @@ permit_params :name, :contact_email, :location, :phone, :hours_of_operation, :us
         "<img src='#{image.image.url(:thumb)}', alt='NA'".html_safe
       end
     end
+
+    panel "Gym Users:" do
+      table_for gym.users do
+        column "Joined" do |user|
+          distance_of_time_in_words(user.created_at, Time.now)
+        end
+        column :name
+        column :email
+        column :role
+        column :device_type
+      end
+    end
+
+    panel "Gym Push Notifications:" do
+      table_for gym.push_notifications do
+        column :created_at
+        column :message
+        column :user_id
+      end
+    end
   end
 
   filter :name
