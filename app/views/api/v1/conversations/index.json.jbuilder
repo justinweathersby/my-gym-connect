@@ -6,6 +6,6 @@ json.conversations @conversations do |convo|
       json.last_message do
         json.body convo.messages.last.body
         json.sender_name User.find(convo.messages.last.user_id).name
-        json.created_at convo.format_last_message_date
+        json.created_at convo.created_at
       end
 end
