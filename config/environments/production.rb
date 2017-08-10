@@ -78,6 +78,18 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Action Mailer
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => 'my-gym-connect.herokuapp.com' }
+  ActionMailer::Base.smtp_settings = {
+    :address        => ENV['EMAIL_ADDRESS'],
+    :port           => ENV['EMAIL_PORT'],
+    :authentication => :plain,
+    :user_name      => ENV['EMAIL_USERNAME'],
+    :password       => ENV['EMAIL_PASSWORD'],
+    :enable_starttls_auto => true
+  }
+
   # Config for s3 and paperclip
   config.paperclip_defaults = {
     storage: :s3,

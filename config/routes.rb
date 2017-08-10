@@ -17,10 +17,10 @@ Rails.application.routes.draw do
 
          resources :sessions, :only      => [:create, :destroy]
          match '/login'                  => 'sessions#create', :via => [:options, :post]
-         post '/logout/:user_id'         => 'sessions#destroy'
-
+         post  '/logout/:user_id'        => 'sessions#destroy'
+         post  '/reset_password'         => 'users#reset_password'
          match '/users/:id'              => 'users#update', :via => [:options, :put, :post]
-         get '/matches'                  => 'matches#show'
+         get   '/matches'                => 'matches#show'
 
          resources :users, :only         => [:show, :create, :update]
 

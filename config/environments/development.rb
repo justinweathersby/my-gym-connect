@@ -39,7 +39,18 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # Action Mailer
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => 'my-gym-connect.herokuapp.com' }
+  ActionMailer::Base.smtp_settings = {
+    :port           => ENV['EMAIL_PORT'],
+    :authentication => :plain,
+    :address        => ENV['SENDGRID_ADDRESS'],
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => ENV['EMAIL_DOMAIN'],
+    :enable_starttls_auto => true
+  }
 
   # Config for s3 and paperclip
   config.paperclip_defaults = {

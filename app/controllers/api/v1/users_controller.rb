@@ -36,15 +36,16 @@ class Api::V1::UsersController < Api::ApiController
   	end
   end
 
-  # def reset_password
-  #   @user = User.find_by_email(params[:user][:email])
-  #   if @user.present?
-  #     # @user.send_reset_password_instructions
-  #     # render json: { "result" => "Email with reset instructions has been sent"}, status: :ok
-  #   else
-  #    render json: { "errors" => "Email not found"}, status: 422
-  #   end
-  # end
+  def reset_password
+    @user = User.find_by_email(params[:email])
+    puts params.inspect
+    if @user.present?
+      @user.send_reset_password_instructions
+      render json: { "result" => "Email with reset instructions has been sent"}, status: :ok
+    else
+     render json: { "errors" => "Email not found"}, status: 422
+    end
+  end
 
   private
 
