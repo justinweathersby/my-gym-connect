@@ -82,11 +82,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { :host => 'my-gym-connect.herokuapp.com' }
   ActionMailer::Base.smtp_settings = {
-    :address        => ENV['EMAIL_ADDRESS'],
     :port           => ENV['EMAIL_PORT'],
     :authentication => :plain,
-    :user_name      => ENV['EMAIL_USERNAME'],
-    :password       => ENV['EMAIL_PASSWORD'],
+    :address        => ENV['SENDGRID_ADDRESS'],
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => ENV['EMAIL_DOMAIN'],
     :enable_starttls_auto => true
   }
 
