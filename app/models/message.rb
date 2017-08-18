@@ -7,7 +7,8 @@ class Message < ActiveRecord::Base
  # , :conversation_id, :user_id
 
  def message_time
-  created_at.strftime("%m/%d/%y at %l:%M %p")
+  # created_at.strftime("%m/%d/%y at %l:%M %p")
+  return self.created_at
  end
 
  private

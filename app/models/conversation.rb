@@ -43,14 +43,14 @@ class Conversation < ActiveRecord::Base
  end
 
  def format_last_message_date
-   date = self.updated_at
-   if date < DateTime.now.days_ago(7)
-     return date.strftime("%m/%d/%Y")
-   elsif date < DateTime.now.beginning_of_day()
-     return date.strftime("%A")
-   else
-     return date.strftime("%I:%M%p")
-   end
+   return self.updated_at
+  #  if date < DateTime.now.days_ago(7)
+  #    return date.strftime("%m/%d/%Y")
+  #  elsif date < DateTime.now.beginning_of_day()
+  #    return date.strftime("%A")
+  #  else
+  #    return date.strftime("%I:%M%p")
+  #  end
  end
 
 end
